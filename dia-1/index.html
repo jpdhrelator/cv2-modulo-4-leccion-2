@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Arcade del Código - Ejercicio práctico de Variables, Expresiones y Sentencias Condicionales en JavaScript. Módulo 4 · Lección 2." />
+<title>🕹️ ARCADE DEL CÓDIGO · M4 L2 · Variables, Expresiones y Condicionales</title>
+<style>
+  /* ============================================================
+     ARCADE DEL CÓDIGO — Tema retro neón
+     Decisión de diseño: paleta oscura con neón para encajar con la
+     narrativa "arcade", pero respetando contraste WCAG AA (texto
+     claro #e8e8ff sobre fondo #0a0a16). Fuente monoespaciada para
+     el "cuerpo técnico" y display para títulos.
+     ============================================================ */
+  :root {
+    --bg: #0a0a16;
+    --bg-card: #12122a;
+    --bg-card-2: #181838;
+    --ink: #e8e8ff;
+    --ink-soft: #b4b4d8;
+    --neon-pink: #ff2e88;
+    --neon-cyan: #19e3ff;
+    --neon-green: #4dff9e;
+    --neon-yellow: #ffe14d;
+    --neon-purple: #b06bff;
+    --border: #2a2a55;
+    --shadow-pink: 0 0 0 2px rgba(255,46,136,.4), 0 8px 30px rgba(255,46,136,.15);
+    --radius: 14px;
+    --space: 8px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(176,107,255,.18), transparent 60%),
+      radial-gradient(1000px 500px at -10% 20%, rgba(25,227,255,.12), transparent 55%),
+      var(--bg);
+    color: var(--ink);
+    font-family: "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .scanlines::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,.015) 0px,
+      rgba(255,255,255,.015) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    z-index: 9999;
+  }
+
+  .wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: calc(var(--space) * 4) calc(var(--space) * 3) calc(var(--space) * 10);
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero {
+    text-align: center;
+    padding: calc(var(--space) * 6) var(--space) calc(var(--space) * 4);
+  }
+  .badge {
+    display: inline-block;
+    font-size: .75rem;
+    letter-spacing: .25em;
+    color: var(--neon-cyan);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 16px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  h1.title {
+    font-family: "Arial Black", "Helvetica Neue", system-ui, sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.1rem, 7vw, 4rem);
+    line-height: 1.02;
+    margin: 0 0 16px;
+    letter-spacing: -.01em;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple) 45%, var(--neon-cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 40px rgba(176,107,255,.25);
+  }
+  .subtitle { color: var(--ink-soft); font-size: 1.05rem; max-width: 620px; margin: 0 auto; }
+  .blink { animation: blink 1.1s steps(2, start) infinite; }
+  @keyframes blink { to { visibility: hidden; } }
+
+  /* ---------- PROGRESO ---------- */
+  .progress-shell {
+    margin: 32px auto 0;
+    max-width: 560px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    height: 22px;
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan));
+    transition: width .4s ease;
+    box-shadow: 0 0 16px rgba(77,255,158,.5);
+  }
+  .progress-label {
+    text-align: center;
+    margin-top: 10px;
+    font-size: .85rem;
+    color: var(--neon-green);
+    letter-spacing: .15em;
+  }
+
+  /* ---------- SECCIONES ---------- */
+  section.panel {
+    background: linear-gradient(180deg, var(--bg-card), var(--bg-card-2));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: calc(var(--space) * 4);
+    margin-top: calc(var(--space) * 4);
+  }
+  .panel h2 {
+    font-family: "Arial Black", system-ui, sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--neon-yellow);
+    margin: 0 0 16px;
+  }
+  .panel p, .panel li { color: var(--ink-soft); }
+  .panel strong { color: var(--ink); }
+
+  /* ---------- NIVELES ---------- */
+  .level {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-top: calc(var(--space) * 4);
+    overflow: hidden;
+    background: var(--bg-card);
+  }
+  .level-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: linear-gradient(90deg, rgba(255,46,136,.10), transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .level-num {
+    flex: 0 0 auto;
+    width: 54px; height: 54px;
+    display: grid; place-items: center;
+    border-radius: 12px;
+    font-family: "Arial Black", system-ui, sans-serif;
+    font-size: 1.5rem;
+    background: var(--bg);
+    border: 1px solid var(--neon-pink);
+    color: var(--neon-pink);
+    box-shadow: 0 0 18px rgba(255,46,136,.3);
+  }
+  .level-titles h3 {
+    margin: 0;
+    font-family: "Arial Black", system-ui, sans-serif;
+    font-size: 1.25rem;
+    color: var(--ink);
+    letter-spacing: .02em;
+  }
+  .level-titles .tag {
+    font-size: .72rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--neon-cyan);
+  }
+  .level-body { padding: 24px; }
+  .level-body h4 {
+    color: var(--neon-green);
+    font-size: .9rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+  .level-body h4:first-child { margin-top: 0; }
+  .level-body ul, .level-body ol { padding-left: 22px; margin: 8px 0; }
+  .level-body li { margin: 6px 0; }
+  code {
+    font-family: inherit;
+    background: rgba(25,227,255,.12);
+    color: var(--neon-cyan);
+    padding: 1px 7px;
+    border-radius: 6px;
+    font-size: .92em;
+  }
+
+  .console {
+    background: #05050d;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--neon-green);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 12px 0;
+    overflow-x: auto;
+  }
+  .console-title {
+    font-size: .7rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .console pre {
+    margin: 0;
+    color: var(--neon-green);
+    font-size: .88rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .hint {
+    background: rgba(176,107,255,.08);
+    border: 1px dashed var(--neon-purple);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    color: var(--ink-soft);
+    font-size: .92rem;
+  }
+  .hint::before { content: "💡 PISTA · "; color: var(--neon-purple); font-weight: bold; letter-spacing: .05em; }
+
+  /* Pista opt-in: solo la ve quien la abre, no le arruina el reto a quien puede solo */
+  details.help {
+    margin: 16px 0 4px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: rgba(25,227,255,.05);
+    overflow: hidden;
+  }
+  details.help > summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 12px 16px;
+    color: var(--neon-cyan);
+    font-size: .85rem;
+    letter-spacing: .05em;
+    user-select: none;
+  }
+  details.help > summary::-webkit-details-marker { display: none; }
+  details.help > summary::before { content: "🆘 "; }
+  details.help[open] > summary { border-bottom: 1px solid var(--border); }
+  details.help[open] > summary::before { content: "🔽 "; }
+  details.help .help-body { padding: 4px 18px 16px; }
+  details.help .help-body p { margin: 6px 0; color: var(--ink-soft); font-size: .9rem; }
+  details.help .help-body ol { margin: 8px 0; padding-left: 22px; }
+  details.help .help-body li { color: var(--ink-soft); font-size: .9rem; margin: 6px 0; }
+
+  .warn {
+    background: rgba(255,225,77,.07);
+    border: 1px dashed var(--neon-yellow);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    color: var(--ink-soft);
+    font-size: .92rem;
+  }
+  .warn::before { content: "⚠️ CONDICIÓN DE BORDE · "; color: var(--neon-yellow); font-weight: bold; letter-spacing: .03em; }
+
+  /* checkbox completar nivel */
+  .level-done {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 24px; padding-top: 18px;
+    border-top: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    color: var(--neon-green);
+    font-size: .9rem;
+    letter-spacing: .08em;
+  }
+  .level-done input { width: 20px; height: 20px; accent-color: var(--neon-green); cursor: pointer; }
+
+  /* ---------- BOSS ---------- */
+  .boss { border-color: var(--neon-pink); box-shadow: var(--shadow-pink); }
+  .boss .level-head { background: linear-gradient(90deg, rgba(255,46,136,.25), transparent); }
+  .boss .level-num { animation: pulse 1.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { box-shadow: 0 0 30px rgba(255,46,136,.7); } }
+
+  .req-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .9rem; }
+  .req-table th, .req-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  .req-table th { color: var(--neon-cyan); letter-spacing: .1em; font-size: .75rem; text-transform: uppercase; }
+  .req-table td { color: var(--ink-soft); }
+
+  /* ---------- RUBRICA / CHECKLIST ---------- */
+  .check-list { list-style: none; padding: 0; margin: 0; }
+  .check-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .check-list input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--neon-cyan); flex: 0 0 auto; }
+
+  /* ---------- BOTONES ---------- */
+  .actions { text-align: center; margin-top: 40px; }
+  button.reset {
+    background: transparent;
+    border: 1px solid var(--neon-pink);
+    color: var(--neon-pink);
+    font-family: inherit;
+    padding: 12px 28px;
+    border-radius: 999px;
+    cursor: pointer;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    font-size: .8rem;
+    transition: all .2s ease;
+  }
+  button.reset:hover { background: var(--neon-pink); color: var(--bg); box-shadow: 0 0 24px rgba(255,46,136,.4); }
+  button.reset:focus-visible { outline: 3px solid var(--neon-cyan); outline-offset: 3px; }
+
+  footer { text-align: center; color: var(--ink-soft); font-size: .8rem; margin-top: 56px; opacity: .7; }
+
+  a { color: var(--neon-cyan); }
+
+  /* foco accesible global */
+  :focus-visible { outline: 3px solid var(--neon-cyan); outline-offset: 2px; border-radius: 6px; }
+
+  @media (max-width: 540px) {
+    .level-head { flex-wrap: wrap; }
+    .wrap { padding-left: 14px; padding-right: 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body class="scanlines">
+<div class="wrap">
+
+  <!-- ======================= HERO ======================= -->
+  <header class="hero">
+    <span class="badge">Módulo 4 · Lección 02 · JavaScript</span>
+    <h1 class="title">ARCADE<br>DEL CÓDIGO</h1>
+    <p class="subtitle">
+      Insertaste una ficha imaginaria. La máquina arranca.<br>
+      Tu misión: dominar <strong>variables</strong>, <strong>operadores</strong>,
+      <strong>cadenas</strong> y <strong>condicionales</strong> superando 4 niveles…
+      antes de enfrentar al <strong>JEFE FINAL</strong>. <span class="blink">_</span>
+    </p>
+
+    <div class="progress-shell" aria-hidden="true">
+      <div class="progress-bar" id="bar"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">PARTIDA: 0 / 5 NIVELES</div>
+  </header>
+
+  <!-- ======================= BRIEFING ======================= -->
+  <section class="panel">
+    <h2>📟 Briefing — Antes de Insertar Ficha</h2>
+    <p>
+      Este arcade entrena <strong>una habilidad por nivel</strong> y, al final, te obliga a usar
+      <strong>todas juntas</strong> contra el Jefe. Así se aprende de verdad: primero aislás la pieza,
+      después la integrás bajo presión.
+    </p>
+    <h4 style="color:var(--neon-cyan)">Reglas de la casa</h4>
+    <ul>
+      <li>Escribís tu código en JavaScript. Probalo en la <strong>consola del navegador</strong> (F12 → Console) o en <a href="https://playcode.io" target="_blank" rel="noopener">un editor online</a>.</li>
+      <li>Cada nivel te dice <strong>QUÉ lograr</strong> y <strong>qué debe imprimir la consola</strong>. El <strong>CÓMO es tuyo</strong>. No vas a encontrar la solución acá — esa la escribís vos.</li>
+      <li>Usá <code>console.log()</code> para mostrar resultados. Usá <code>let</code> y <code>const</code> con criterio (¿por qué cada uno?).</li>
+      <li>Marcá cada nivel como completado. Tu progreso se guarda solo en este navegador.</li>
+    </ul>
+    <h4 style="color:var(--neon-cyan)">Objetivo de aprendizaje</h4>
+    <p>
+      Al terminar deberías poder <strong>declarar variables correctamente</strong>, <strong>construir expresiones</strong>
+      con operadores aritméticos, de comparación y lógicos, <strong>manipular texto</strong> y <strong>controlar el flujo</strong>
+      de un programa con <code>if / else if / else</code> contemplando los casos de borde.
+    </p>
+  </section>
+
+  <!-- ======================= NIVEL 1: VARIABLES ======================= -->
+  <article class="level" id="lvl1">
+    <div class="level-head">
+      <div class="level-num">1</div>
+      <div class="level-titles">
+        <div class="tag">Sector de Arranque</div>
+        <h3>🎒 EL INVENTARIO DEL HÉROE</h3>
+      </div>
+    </div>
+    <div class="level-body">
+      <p>Todo personaje de videojuego tiene un inventario. Y un inventario… son <strong>variables</strong>. Vas a crear la ficha de tu héroe.</p>
+
+      <h4>Misión</h4>
+      <ol>
+        <li>Declará e inicializá variables para tu héroe: <code>nombre</code> (texto), <code>nivel</code> (número entero), <code>energia</code> (número con decimales), <code>estaVivo</code> (booleano) y <code>monedas</code> (número).</li>
+        <li>Declará una constante <code>juego</code> con el nombre del videojuego. Preguntate: <strong>¿por qué esta debe ser <code>const</code> y no <code>let</code>?</strong></li>
+        <li>Creá una variable <code>poderSecreto</code> pero <strong>declarala primero y inicializala en una línea aparte</strong> (como enseña la lección: declarar y luego asignar).</li>
+        <li>Usando la función <code>typeof</code>, mostrá en consola el tipo de dato de <strong>cada</strong> variable.</li>
+        <li>Mostrá en consola una línea de presentación de tu héroe usando esas variables.</li>
+      </ol>
+
+      <div class="console">
+        <div class="console-title">🖥️ Salida esperada (con tus propios valores)</div>
+<pre>nombre es de tipo string
+nivel es de tipo number
+energia es de tipo number
+estaVivo es de tipo boolean
+monedas es de tipo number
+Héroe: Kira | Nivel 7 | Energía 88.5 | ¿Vive? true | 120 monedas</pre>
+      </div>
+
+      <div class="hint">Recordá las reglas de nombres: un nombre de variable empieza por letra, <code>_</code> o <code>$</code>, y JavaScript distingue mayúsculas de minúsculas (<code>nivel</code> ≠ <code>Nivel</code>). Elegí nombres que <em>describan</em> lo que guardan.</div>
+
+      <div class="warn">¿Qué pasa si declarás <code>poderSecreto</code> pero NO lo inicializás antes de hacerle <code>typeof</code>? Probalo y observá qué responde la consola. Eso es una variable <em>especial</em>.</div>
+
+      <details class="help">
+        <summary>¿Te trabaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
+        <div class="help-body">
+          <ol>
+            <li>Una variable se crea con una palabra clave (<code>let</code> o <code>const</code>), un nombre y un valor. Empezá por la más fácil: el <code>nombre</code> del héroe es texto, así que va entre comillas.</li>
+            <li>Para el tipo de cada una, <code>typeof</code> se escribe <em>antes</em> del nombre de la variable, sin paréntesis obligatorios.</li>
+            <li>La constante <code>juego</code> nunca va a cambiar durante la partida → eso te dice qué palabra clave usar.</li>
+            <li>Para la línea de presentación, recordá que con <code>+</code> podés ir uniendo textos y variables.</li>
+          </ol>
+        </div>
+      </details>
+
+      <label class="level-done"><input type="checkbox" data-level="1"> NIVEL 1 COMPLETADO</label>
+    </div>
+  </article>
+
+  <!-- ======================= NIVEL 2: OPERADORES ======================= -->
+  <article class="level" id="lvl2">
+    <div class="level-head">
+      <div class="level-num">2</div>
+      <div class="level-titles">
+        <div class="tag">Power-Ups</div>
+        <h3>⚡ LA MÁQUINA DE PUNTAJE</h3>
+      </div>
+    </div>
+    <div class="level-body">
+      <p>Un arcade sin puntaje no es un arcade. Acá entrenás <strong>operadores y expresiones</strong>: aritméticos, precedencia, incremento/decremento y comparación.</p>
+
+      <h4>Misión A — Aritmética y precedencia</h4>
+      <ol>
+        <li>Declará <code>monedas = 3</code>, <code>gemas = 5</code> y <code>multiplicador = 2</code>.</li>
+        <li>Calculá el <code>puntaje</code> con la fórmula <code>monedas + gemas * multiplicador</code> y mostralo. <strong>Antes de ejecutar, predecí el resultado a mano</strong> recordando la precedencia (la multiplicación va antes que la suma).</li>
+        <li>Ahora forzá el otro orden usando paréntesis para que primero sume y luego multiplique. Mostrá ambos resultados y comprobá que son <strong>distintos</strong>.</li>
+        <li>Calculá si el puntaje es par o impar usando el operador <strong>resto</strong> (<code>%</code>).</li>
+      </ol>
+
+      <h4>Misión B — Incremento y decremento</h4>
+      <ol>
+        <li>Tenés <code>vidas = 3</code>. Tu héroe encuentra una vida extra: aumentá <code>vidas</code> usando el operador de incremento.</li>
+        <li>Demostrá que entendés la diferencia: creá <code>a = 3</code> y mostrá qué vale <code>a++</code> vs qué vale <code>++a</code>. Explicá en un comentario <strong>por qué</strong> dan distinto.</li>
+      </ol>
+
+      <h4>Misión C — Comparación</h4>
+      <ol>
+        <li>Mostrá en consola el resultado (true/false) de comparar el <code>puntaje</code> contra <code>10</code> usando: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code> y <code>&lt;=</code>.</li>
+      </ol>
+
+      <div class="console">
+        <div class="console-title">🖥️ Salida esperada (ejemplo de formato)</div>
+<pre>Puntaje (sin paréntesis): 13
+Puntaje (con paréntesis): 16
+¿Es par? false
+Vidas tras power-up: 4
+a++ devuelve 3 y luego a vale 4
+++a devuelve 4
+puntaje == 10 -> false
+puntaje > 10  -> true</pre>
+      </div>
+
+      <div class="hint">El sufijo (<code>a++</code>) primero <em>devuelve</em> el valor y después suma. El prefijo (<code>++a</code>) primero suma y después devuelve. La posición lo cambia todo.</div>
+
+      <details class="help">
+        <summary>¿Te trabaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
+        <div class="help-body">
+          <ol>
+            <li>Para la precedencia: el <code>*</code> se ejecuta antes que el <code>+</code> aunque esté escrito después. Si querés cambiar ese orden, los <strong>paréntesis</strong> mandan.</li>
+            <li>"Par o impar" se resuelve mirando el <strong>resto</strong> de dividir entre 2. Si ese resto vale 0… ¿qué número es?</li>
+            <li>Para comparar, guardá cada comparación en una variable o mostrala directo con <code>console.log()</code>. El resultado siempre será <code>true</code> o <code>false</code>.</li>
+            <li>Para ver la diferencia de <code>a++</code> vs <code>++a</code>, asigná el resultado a otra variable y mostrá <em>las dos</em> (la original y la nueva).</li>
+          </ol>
+        </div>
+      </details>
+
+      <label class="level-done"><input type="checkbox" data-level="2"> NIVEL 2 COMPLETADO</label>
+    </div>
+  </article>
+
+  <!-- ======================= NIVEL 3: CADENAS ======================= -->
+  <article class="level" id="lvl3">
+    <div class="level-head">
+      <div class="level-num">3</div>
+      <div class="level-titles">
+        <div class="tag">String Theory</div>
+        <h3>💬 EL GENERADOR DE GAMERTAGS</h3>
+      </div>
+    </div>
+    <div class="level-body">
+      <p>Hora de jugar con <strong>cadenas de caracteres</strong>: comillas, concatenación, <code>length</code> y <code>charAt()</code>.</p>
+
+      <h4>Misión</h4>
+      <ol>
+        <li>Declará <code>nombre</code> y <code>apellido</code> de un jugador.</li>
+        <li>Generá su <code>gamertag</code> <strong>concatenando</strong> nombre y apellido con un guión bajo en el medio. Ej: <code>"Ada_Lovelace"</code>.</li>
+        <li>Mostrá cuántos caracteres tiene el gamertag usando <code>length</code>.</li>
+        <li>Mostrá la <strong>primera letra</strong> del gamertag usando <code>charAt()</code>. (Ojo: la primera posición no es la 1…).</li>
+        <li>Creá una cadena que contenga comillas dobles <em>dentro</em> del texto, por ejemplo un grito de batalla. Pista de la lección: las comillas internas NO deben coincidir con las externas.</li>
+      </ol>
+
+      <div class="console">
+        <div class="console-title">🖥️ Salida esperada (ejemplo de formato)</div>
+<pre>Gamertag: Ada_Lovelace
+Longitud: 12
+Primera letra: A
+Grito: Ada dijo "¡a programar!"</pre>
+      </div>
+
+      <div class="warn">¿Qué devuelve <code>charAt(1)</code> sobre <code>"cadena"</code>? Según la lección, devuelve <code>"a"</code>, no <code>"c"</code>. Las posiciones empiezan en <strong>cero</strong>. Tenelo presente.</div>
+
+      <details class="help">
+        <summary>¿Te trabaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
+        <div class="help-body">
+          <ol>
+            <li>El gamertag se arma uniendo tres cosas con <code>+</code>: nombre, el guión bajo (que es texto: <code>"_"</code>) y apellido.</li>
+            <li><code>length</code> se escribe pegado a la variable con un punto: <code>variable.length</code>. No lleva paréntesis.</li>
+            <li>Para la primera letra, <code>charAt()</code> sí lleva paréntesis y adentro va la posición. La primera posición es <strong>0</strong>, no 1.</li>
+            <li>Para el grito con comillas dobles adentro: encerrá todo el texto con comillas simples <code>'</code> o backticks <code>`</code>, así las dobles de adentro no chocan.</li>
+          </ol>
+        </div>
+      </details>
+
+      <label class="level-done"><input type="checkbox" data-level="3"> NIVEL 3 COMPLETADO</label>
+    </div>
+  </article>
+
+  <!-- ======================= NIVEL 4: CONDICIONALES ======================= -->
+  <article class="level" id="lvl4">
+    <div class="level-head">
+      <div class="level-num">4</div>
+      <div class="level-titles">
+        <div class="tag">Decisión Final</div>
+        <h3>🚦 EL PORTAL DE ACCESO</h3>
+      </div>
+    </div>
+    <div class="level-body">
+      <p>Un portal mágico decide quién pasa. Acá entrenás <strong>operadores lógicos</strong> (<code>&amp;&amp;</code>, <code>||</code>, <code>!</code>) y el control de flujo con <code>if / else if / else</code>.</p>
+
+      <h4>Misión A — Clasificador de rango</h4>
+      <p>Según los <code>puntos</code> de un jugador, el portal le asigna un rango. Construí un <code>if / else if / else</code> que imprima:</p>
+      <ul>
+        <li>Menos de 0 puntos → <code>"Puntaje inválido"</code></li>
+        <li>De 0 a 49 → <code>"Aprendiz"</code></li>
+        <li>De 50 a 99 → <code>"Aventurero"</code></li>
+        <li>De 100 a 199 → <code>"Veterano"</code></li>
+        <li>200 o más → <code>"Leyenda"</code></li>
+      </ul>
+
+      <h4>Misión B — La puerta lógica</h4>
+      <p>El portal solo abre si se cumplen condiciones combinadas. Tenés <code>tieneLlave</code> (booleano), <code>energia</code> (número) y <code>esInvitado</code> (booleano).</p>
+      <ul>
+        <li>El portal abre si <strong>(tiene la llave Y tiene más de 20 de energía)</strong> O <strong>es invitado</strong>.</li>
+        <li>Mostrá <code>"Portal ABIERTO"</code> o <code>"Portal CERRADO"</code> según corresponda.</li>
+        <li>Usá el operador <code>!</code> (NOT) para mostrar además un mensaje cuando el jugador <strong>NO</strong> esté vivo.</li>
+      </ul>
+
+      <div class="console">
+        <div class="console-title">🖥️ Salida esperada (ejemplo con puntos = 120, tieneLlave = true, energia = 30)</div>
+<pre>Rango: Veterano
+Portal ABIERTO</pre>
+      </div>
+
+      <div class="warn">Pensá el <strong>dominio completo de entradas</strong>: ¿qué pasa si <code>puntos</code> llega vacío, <code>null</code>, o con un valor negativo? Tu código debe responder con algo sensato en TODOS los casos, no romperse ni quedar en silencio. Esto es manejar <strong>condiciones de borde</strong>.</div>
+
+      <details class="help">
+        <summary>¿Te trabaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
+        <div class="help-body">
+          <ol>
+            <li>El orden de las preguntas en un <code>if / else if</code> <strong>importa</strong>: empezá por el caso inválido (menos de 0) y luego subí de rango en orden. Cuando una condición se cumple, las de abajo ya no se revisan.</li>
+            <li>Para la puerta lógica, traducí la frase tal cual: "(A <code>&amp;&amp;</code> B) <code>||</code> C". Los paréntesis agrupan lo que va junto.</li>
+            <li>"Tiene más de 20 de energía" es una comparación (<code>&gt;</code>) que da <code>true</code> o <code>false</code> y se combina con los demás con <code>&amp;&amp;</code>.</li>
+            <li>El <code>!</code> invierte un booleano: <code>!estaVivo</code> es <code>true</code> justamente cuando el jugador NO está vivo.</li>
+          </ol>
+        </div>
+      </details>
+
+      <label class="level-done"><input type="checkbox" data-level="4"> NIVEL 4 COMPLETADO</label>
+    </div>
+  </article>
+
+  <!-- ======================= JEFE FINAL ======================= -->
+  <article class="level boss" id="lvl5">
+    <div class="level-head">
+      <div class="level-num">★</div>
+      <div class="level-titles">
+        <div class="tag" style="color:var(--neon-pink)">Jefe Final · Integración Total</div>
+        <h3>👑 DUELO ARCADE: PIEDRA · PAPEL · TIJERA</h3>
+      </div>
+    </div>
+    <div class="level-body">
+      <p>
+        Llegaste al final. Acá <strong>no se entrena una sola habilidad</strong>: tenés que usar
+        <strong>TODO lo de los 4 niveles a la vez</strong>. Vas a programar el clásico
+        <strong>Piedra, Papel o Tijera de 2 jugadores</strong> con marcador de estadísticas —
+        la actividad oficial de la lección.
+      </p>
+
+      <h4>Lo que tu programa debe hacer</h4>
+      <ol>
+        <li>Guardar la jugada del <strong>Jugador 1</strong> y del <strong>Jugador 2</strong> en variables de texto (ej: <code>"piedra"</code>, <code>"papel"</code>, <code>"tijera"</code>).</li>
+        <li>Llevar el marcador en variables numéricas: <code>ganadasJ1</code>, <code>ganadasJ2</code> y <code>empates</code> (¿por qué <code>let</code> y no <code>const</code> acá?).</li>
+        <li>Determinar el ganador de la ronda con <code>if / else if / else</code> aplicando las reglas:
+          piedra vence a tijera, tijera vence a papel, papel vence a piedra. Jugadas iguales = empate.</li>
+        <li>Usar operadores <strong>lógicos</strong> y de <strong>comparación</strong> para evaluar las combinaciones.</li>
+        <li>Después de cada jugada, <strong>imprimir las estadísticas</strong>: cuántas rondas ganó J1, cuántas J2 y cuántos empates.</li>
+        <li>Usar <strong>concatenación</strong> para armar los mensajes que se muestran por pantalla.</li>
+      </ol>
+
+      <h4>Tabla de habilidades que DEBÉS demostrar</h4>
+      <table class="req-table">
+        <thead><tr><th>Del nivel</th><th>Tenés que usarlo en</th></tr></thead>
+        <tbody>
+          <tr><td>1 · Variables</td><td>Jugadas, marcador, constantes de reglas</td></tr>
+          <tr><td>2 · Operadores</td><td>Comparar jugadas, sumar puntos al marcador</td></tr>
+          <tr><td>3 · Cadenas</td><td>Construir los mensajes de resultado por pantalla</td></tr>
+          <tr><td>4 · Condicionales</td><td>Decidir el ganador y manejar empates</td></tr>
+        </tbody>
+      </table>
+
+      <div class="console">
+        <div class="console-title">🖥️ Salida esperada (ejemplo de una ronda)</div>
+<pre>Jugador 1: piedra | Jugador 2: tijera
+¡Gana el Jugador 1!
+--- ESTADÍSTICAS ---
+J1: 1 | J2: 0 | Empates: 0</pre>
+      </div>
+
+      <div class="warn">El Jefe no se vence con suerte. ¿Qué pasa si un jugador escribe <code>"PIEDRA"</code> en mayúsculas, o escribe <code>"roca"</code>, o deja la jugada vacía? Una jugada inválida debe avisarse, no romper el juego. Domina el <strong>dominio total de entradas</strong>.</div>
+
+      <h4>🏆 Misiones de bonus (para los que quieren el récord)</h4>
+      <ul>
+        <li>Que el juego soporte <strong>varias rondas seguidas</strong> y muestre al campeón al final.</li>
+        <li>Validá que ambas jugadas sean válidas <strong>antes</strong> de comparar.</li>
+        <li>Anunciá un <strong>"GANADOR DE LA PARTIDA"</strong> comparando los marcadores finales con operadores de comparación.</li>
+      </ul>
+
+      <details class="help">
+        <summary>¿Te trabaste con el Jefe? Abrí esta ayuda (te da el plan, no el código)</summary>
+        <div class="help-body">
+          <p>No intentes hacerlo todo de una. Partilo en pasos chiquitos, como en los niveles:</p>
+          <ol>
+            <li><strong>Preparar la mesa:</strong> creá las variables de las jugadas (texto) y el marcador en 0 (<code>ganadasJ1</code>, <code>ganadasJ2</code>, <code>empates</code>).</li>
+            <li><strong>Empate primero:</strong> la pregunta más fácil es "¿las dos jugadas son iguales?". Si lo son, es empate. Resolvé ese caso antes de nada.</li>
+            <li><strong>Las tres reglas de victoria de J1:</strong> J1 gana solo en 3 combinaciones (piedra+tijera, tijera+papel, papel+piedra). Si NO es ninguna de esas y NO fue empate… ganó J2.</li>
+            <li><strong>Sumar al marcador:</strong> cada vez que alguien gana, aumentá su contador. Acá entra el operador de incremento del Nivel 2.</li>
+            <li><strong>Mostrar todo:</strong> armá el mensaje con concatenación (Nivel 3) e imprimí las estadísticas.</li>
+          </ol>
+          <p>Tip: si te abruma, programá <strong>una sola ronda</strong> que funcione perfecto. Recién después pensás en varias rondas.</p>
+        </div>
+      </details>
+
+      <label class="level-done"><input type="checkbox" data-level="5"> 👑 JEFE FINAL DERROTADO</label>
+    </div>
+  </article>
+
+  <!-- ======================= AUTOEVALUACIÓN ======================= -->
+  <section class="panel" style="margin-top:40px">
+    <h2>✅ Tarjeta de Puntaje — Autoevaluación</h2>
+    <p>Antes de gritar "¡terminé!", revisá honestamente. Marcá solo lo que de verdad cumpliste:</p>
+    <ul class="check-list">
+      <li><input type="checkbox"> Usé <code>let</code> y <code>const</code> y puedo explicar por qué elegí cada uno.</li>
+      <li><input type="checkbox"> Mis nombres de variables describen lo que guardan (nada de <code>x</code>, <code>aaa</code> o <code>dato1</code>).</li>
+      <li><input type="checkbox"> Predije resultados de precedencia <em>antes</em> de ejecutar y acerté.</li>
+      <li><input type="checkbox"> Sé explicar la diferencia entre <code>a++</code> y <code>++a</code>.</li>
+      <li><input type="checkbox"> Usé <code>length</code> y <code>charAt()</code> correctamente (recordando que se cuenta desde 0).</li>
+      <li><input type="checkbox"> Mis condicionales cubren TODOS los casos, incluidos los de borde (vacío, nulo, inválido).</li>
+      <li><input type="checkbox"> El Jefe Final usa variables + operadores + cadenas + condicionales juntos.</li>
+      <li><input type="checkbox"> Probé mi código y la salida coincide con la esperada.</li>
+    </ul>
+  </section>
+
+  <div class="actions">
+    <button class="reset" id="resetBtn" type="button">↺ Reiniciar partida</button>
+  </div>
+
+  <footer>
+    <p>🕹️ ARCADE DEL CÓDIGO — Módulo 4 · Lección 02 · Variables, Expresiones y Sentencias Condicionales<br>
+    Hecho para que practiques cada pieza por separado… y las domines todas juntas.</p>
+  </footer>
+
+</div>
+
+<script>
+  /* ============================================================
+     Lógica de UX (NO contiene solución del ejercicio).
+     Solo gestiona el progreso del estudiante con localStorage.
+     ============================================================ */
+  (function () {
+    "use strict";
+    var STORAGE_KEY = "arcade-codigo-m4l2";
+    var TOTAL = 5;
+    var levelBoxes = document.querySelectorAll('input[data-level]');
+    var bar = document.getElementById('bar');
+    var label = document.getElementById('progressLabel');
+
+    function load() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+      catch (e) { return {}; }
+    }
+    function save(state) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    }
+    function render() {
+      var state = load();
+      var done = 0;
+      levelBoxes.forEach(function (box) {
+        var lvl = box.getAttribute('data-level');
+        box.checked = !!state[lvl];
+        if (box.checked) done++;
+      });
+      var pct = Math.round((done / TOTAL) * 100);
+      bar.style.width = pct + '%';
+      if (done === TOTAL) {
+        label.textContent = '🏆 ¡ARCADE COMPLETADO! ' + done + ' / ' + TOTAL;
+      } else {
+        label.textContent = 'PARTIDA: ' + done + ' / ' + TOTAL + ' NIVELES';
+      }
+    }
+
+    levelBoxes.forEach(function (box) {
+      box.addEventListener('change', function () {
+        var state = load();
+        state[box.getAttribute('data-level')] = box.checked;
+        save(state);
+        render();
+      });
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', function () {
+      if (confirm('¿Reiniciar tu progreso? Esto borra los niveles marcados.')) {
+        try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+        render();
+      }
+    });
+
+    render();
+  })();
+</script>
+</body>
+</html>
