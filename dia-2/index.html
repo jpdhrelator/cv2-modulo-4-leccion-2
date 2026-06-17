@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Ejercicios PARA PRACTICAR de Variables, Operadores, Expresiones y Sentencias Condicionales en JavaScript. Módulo 4 · Lección 2. El alumno escribe el código en un editor real, lo ejecuta y se autocorrige. NO trae soluciones." />
-<title>🎮 Práctica · M4 L2 · Condicionales y repaso de ayer</title>
+<meta name="description" content="Guía de ejercicios PARA PRACTICAR de Variables, Operadores, Expresiones, Condicionales y Operador Ternario en JavaScript. Módulo 4 · Lección 2. El alumno crea sus propios archivos .js, los versiona con Git y los publica en GitHub Pages. NO trae soluciones." />
+<title>🎮 Práctica · M4 L2 · Condicionales + Git & GitHub Pages</title>
 <style>
   /* ============================================================
-     EJERCICIOS PARA PRACTICAR — Tema "aula clara"
-     MISMA identidad visual que el material de clase y los ejercicios
-     resueltos (coherencia). La diferencia: aquí NO hay solución a la
-     vista. El alumno escribe su propio código en un editor real,
-     lo ejecuta y compara contra el resultado esperado.
+     GUÍA DE EJERCICIOS PARA PRACTICAR — Tema "aula clara"
+     MISMA identidad visual que el material de clase (coherencia).
+     ESTA página es SOLO el enunciado: aquí NO se ejecuta código.
+     El alumno crea sus propios archivos .js, los versiona con Git
+     y publica el resultado en GitHub Pages.
      ============================================================ */
   :root {
     --bg: #f5f7fb;
@@ -28,6 +28,7 @@
     --code-bg: #0f172a;
     --code-ink: #e2e8f0;
     --code-green: #6ee7b7;
+    --code-gray: #64748b;
     --border: #dbe3ee;
     --radius: 14px;
   }
@@ -61,27 +62,6 @@
   }
   header.hero h1 { margin: 0 0 12px; font-size: clamp(1.8rem, 4.5vw, 2.8rem); line-height: 1.1; }
   header.hero p { margin: 0; font-size: 1.1rem; opacity: .95; max-width: 760px; }
-
-  /* ---------- BARRA DE PROGRESO ---------- */
-  .progress-card {
-    background: var(--paper);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px 28px;
-    margin-bottom: 28px;
-    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-  }
-  .progress-card .label { font-weight: 700; color: var(--ink); white-space: nowrap; }
-  .progress-bar {
-    flex: 1; min-width: 200px; height: 16px; background: #e2e8f0;
-    border-radius: 999px; overflow: hidden;
-  }
-  .progress-bar .fill {
-    height: 100%; width: 0%;
-    background: linear-gradient(90deg, var(--ok), var(--accent));
-    transition: width .4s ease;
-  }
-  .progress-card .count { font-variant-numeric: tabular-nums; color: var(--ink-soft); white-space: nowrap; }
 
   /* ---------- INDICE ---------- */
   nav.toc {
@@ -124,7 +104,7 @@
   section.topic .lead { color: var(--ink-soft); margin: 0 0 18px; }
   section.topic p { margin: 14px 0; }
   section.topic strong { color: var(--ink); }
-  section.topic ul { padding-left: 24px; }
+  section.topic ul, section.topic ol { padding-left: 24px; }
   section.topic li { margin: 8px 0; }
 
   /* etiqueta de dificultad */
@@ -169,6 +149,16 @@
   .examples th { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-soft); }
   .examples td { font-family: "SF Mono", Menlo, Consolas, monospace; }
 
+  .concept {
+    background: #faf5ff;
+    border-left: 5px solid var(--brand-2);
+    border-radius: 10px;
+    padding: 16px 22px;
+    margin: 18px 0;
+  }
+  .concept::before { content: "🧠 Concepto nuevo — "; font-weight: 700; color: var(--brand-2); }
+  .concept code.inline { background: #efe7ff; color: #6d28d9; }
+
   code.inline {
     background: #eef2f7;
     color: #b91c63;
@@ -178,75 +168,86 @@
     font-size: .92em;
   }
 
-  /* ---------- EDITOR ---------- */
-  .editor-block {
-    margin: 22px 0;
+  /* ---------- ARCHIVO A CREAR ---------- */
+  .filenote {
+    margin: 22px 0 8px;
     border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
   }
-  .editor-head {
-    display: flex; align-items: center; justify-content: space-between;
-    background: #1e293b;
-    padding: 10px 16px;
+  .filenote .fhead {
+    display: flex; align-items: center; gap: 10px;
+    background: #1e293b; color: #e2e8f0;
+    padding: 10px 16px; font-size: .9rem;
   }
-  .editor-head .dots { display: flex; gap: 7px; }
-  .editor-head .dots span { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
-  .editor-head .dots span:nth-child(1){ background:#ff5f56; }
-  .editor-head .dots span:nth-child(2){ background:#ffbd2e; }
-  .editor-head .dots span:nth-child(3){ background:#27c93f; }
-  .editor-head .fname { color: #94a3b8; font-size: .8rem; font-family: "SF Mono", Menlo, monospace; }
-
-  textarea.code {
-    display: block; width: 100%; margin: 0; border: 0;
+  .filenote .fhead .tag {
+    background: var(--brand); color: #fff; font-size: .7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .05em; padding: 3px 10px; border-radius: 999px;
+  }
+  .filenote .fhead .fname { font-family: "SF Mono", Menlo, monospace; color: #94a3b8; }
+  pre.code {
+    margin: 0;
     background: var(--code-bg);
     color: var(--code-ink);
-    padding: 20px 22px;
+    padding: 18px 22px;
+    overflow-x: auto;
     font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
-    font-size: 1rem;
+    font-size: .95rem;
     line-height: 1.6;
     tab-size: 2;
-    min-height: 220px;
-    resize: vertical;
-    outline: none;
   }
-  textarea.code:focus { box-shadow: inset 0 0 0 2px var(--brand); }
+  pre.code .cmt { color: var(--code-gray); font-style: italic; }
+  .filehint { font-size: .85rem; color: var(--ink-soft); margin: 6px 4px 0; }
 
-  .run-bar {
-    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-    background: #0b1220;
-    padding: 12px 16px;
-    border-top: 1px solid #1e293b;
+  /* ---------- PASOS GIT ---------- */
+  .setup {
+    background: var(--paper);
+    border: 2px solid var(--brand);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin: 28px 0 40px;
   }
-  button.run, button.reset, button.toggle {
-    border: none; border-radius: 8px; font-family: inherit;
-    font-size: .92rem; font-weight: 600; cursor: pointer;
-    padding: 9px 20px; transition: filter .15s ease;
+  .setup h2 { margin: 0 0 6px; font-size: 1.5rem; }
+  .setup .sub { color: var(--ink-soft); margin: 0 0 18px; }
+  .setup h3 { font-size: 1.1rem; margin: 26px 0 6px; color: var(--brand-2); }
+  .tree {
+    background: #f8fafc; border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 20px; font-family: "SF Mono", Menlo, monospace; font-size: .9rem;
+    color: var(--ink); white-space: pre; overflow-x: auto;
   }
-  button.run { background: var(--ok); color: #fff; }
-  button.run:hover { filter: brightness(1.12); }
-  button.reset { background: #334155; color: #e2e8f0; }
-  button.reset:hover { filter: brightness(1.18); }
-  button.run:focus-visible, button.reset:focus-visible, button.toggle:focus-visible {
-    outline: 3px solid #7dd3fc; outline-offset: 2px;
+  .steps { counter-reset: step; padding-left: 0; list-style: none; }
+  .steps li {
+    position: relative; padding-left: 44px; margin: 14px 0; min-height: 30px;
   }
-  .run-bar .hint { color: #64748b; font-size: .82rem; }
+  .steps li::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 0; top: 0;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--brand); color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; font-size: .9rem;
+  }
 
-  .console {
-    background: #060a14;
-    color: var(--code-green);
-    font-family: "SF Mono", Menlo, monospace;
-    font-size: .95rem;
-    padding: 0 22px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .3s ease, padding .3s ease;
-    white-space: pre-wrap;
-    word-break: break-word;
+  /* ---------- CALLOUTS ---------- */
+  .reminder {
+    background: var(--warn-bg);
+    border-left: 5px solid var(--warn);
+    border-radius: 10px;
+    padding: 16px 22px;
+    margin: 24px 0;
   }
-  .console.show { max-height: 520px; padding: 16px 22px; overflow-y: auto; }
-  .console .out-label { color: #475569; font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; display: block; margin-bottom: 8px; }
-  .console .err { color: #fca5a5; }
+  .reminder::before { content: "🧭 Antes de empezar — "; font-weight: 700; color: var(--warn); }
+
+  .checklist {
+    background: var(--ok-bg);
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius);
+    padding: 24px 30px;
+    margin: 40px 0;
+  }
+  .checklist h2 { margin: 0 0 12px; font-size: 1.3rem; color: var(--ok); }
+  .checklist ul { list-style: none; padding-left: 0; }
+  .checklist li { margin: 10px 0; padding-left: 30px; position: relative; }
+  .checklist li::before { content: "☐"; position: absolute; left: 0; font-size: 1.2rem; color: var(--ok); }
 
   /* ---------- PISTA PLEGABLE ---------- */
   details.hint-box {
@@ -270,29 +271,10 @@
   footer { text-align: center; color: var(--ink-soft); font-size: .9rem; margin-top: 64px; }
   a.back-top { color: var(--brand); text-decoration: none; font-size: .85rem; }
 
-  .reminder {
-    background: var(--warn-bg);
-    border-left: 5px solid var(--warn);
-    border-radius: 10px;
-    padding: 16px 22px;
-    margin: 24px 0;
-  }
-  .reminder::before { content: "🧭 Antes de empezar — "; font-weight: 700; color: var(--warn); }
-
-  .concept {
-    background: #faf5ff;
-    border-left: 5px solid var(--brand-2);
-    border-radius: 10px;
-    padding: 16px 22px;
-    margin: 18px 0;
-  }
-  .concept::before { content: "🧠 Concepto nuevo — "; font-weight: 700; color: var(--brand-2); }
-  .concept code.inline { background: #efe7ff; color: #6d28d9; }
-
   @media (max-width: 640px) {
     body { font-size: 16px; }
     .wrap { padding: 20px 14px 64px; }
-    section.topic { padding: 22px 18px; }
+    section.topic, .setup { padding: 22px 18px; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -304,18 +286,82 @@
   <header class="hero">
     <p class="kicker">Módulo 4 · Lección 02 · Ejercicios para practicar</p>
     <h1>Condicionales en acción 🎮</h1>
-    <p>6 desafíos para <strong>escribir tú mismo</strong> el código: 5 mini-retos y 1 desafío final. Repasas lo de ayer (variables, operadores, expresiones) y le metes diente a las <strong>sentencias condicionales</strong> y al <strong>operador ternario</strong>. Acá no hay soluciones servidas: escribes, ejecutas y comparas contra el resultado esperado. <strong>Equivocarte está permitido. Rendirte no.</strong></p>
+    <p>6 desafíos para resolver <strong>escribiendo tú mismo</strong> el código JavaScript: 5 mini-retos y 1 desafío final. Repasas lo de ayer (variables, operadores, expresiones) y le metes diente a las <strong>sentencias condicionales</strong> y al <strong>operador ternario</strong>. Aquí <strong>NO se ejecuta nada</strong>: tú creas tus propios archivos <code style="color:#fff">.js</code>, los versionas con <strong>Git</strong> y publicas tu trabajo en <strong>GitHub Pages</strong>. <strong>Equivocarte está permitido. Rendirte no.</strong></p>
   </header>
-
-  <!-- ===================== PROGRESO ===================== -->
-  <div class="progress-card">
-    <span class="label">🏆 Tu progreso</span>
-    <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
-    <span class="count" id="progressCount">0 / 5 desafíos ejecutados</span>
-  </div>
 
   <!-- ===================== RECORDATORIO ===================== -->
   <div class="reminder">no escribas una sola línea hasta entender QUÉ te pide el ejercicio. Lee el desafío, mira los ejemplos de entrada y salida, imagina el camino en tu cabeza, y RECIÉN AHÍ tocas el teclado. El que entiende el concepto resuelve cualquier variante; el que copia, se queda pegado en el primer cambio.</div>
+
+  <!-- ===================== SETUP GIT + PAGES ===================== -->
+  <section class="setup" id="setup">
+    <h2>🛠️ Cómo se entrega este trabajo</h2>
+    <p class="sub">Esta es la parte profesional: no basta con que "te funcione en tu compu". Hay que versionarlo y publicarlo. Lee TODO antes de empezar.</p>
+
+    <h3>📁 1. Estructura de tu proyecto</h3>
+    <p>Crea una carpeta y dentro arma exactamente esta estructura:</p>
+    <div class="tree">practica-condicionales/
+├── index.html        <span style="color:#64748b">← carga todos tus scripts</span>
+└── js/
+    ├── mini-1.js
+    ├── mini-2.js
+    ├── mini-3.js
+    ├── mini-4.js
+    ├── mini-5.js
+    └── boss.js</div>
+
+    <h3>🔗 2. El <code class="inline">index.html</code> que enlaza tus scripts</h3>
+    <p>Tu HTML casi no tiene contenido visible: su trabajo es <strong>cargar los archivos JavaScript</strong>. La salida la verás en la <strong>consola del navegador</strong> (tecla <code class="inline">F12</code> → pestaña "Console").</p>
+    <div class="filenote">
+      <div class="fhead"><span class="tag">crea este archivo</span><span class="fname">index.html</span></div>
+<pre class="code">&lt;!DOCTYPE html&gt;
+&lt;html lang="es-CL"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;title&gt;Práctica de condicionales&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Práctica de condicionales&lt;/h1&gt;
+  &lt;p&gt;Abre la consola del navegador (F12) para ver los resultados.&lt;/p&gt;
+
+  <span class="cmt">&lt;!-- Cada script resuelve un ejercicio --&gt;</span>
+  &lt;script src="js/mini-1.js"&gt;&lt;/script&gt;
+  &lt;script src="js/mini-2.js"&gt;&lt;/script&gt;
+  &lt;script src="js/mini-3.js"&gt;&lt;/script&gt;
+  &lt;script src="js/mini-4.js"&gt;&lt;/script&gt;
+  &lt;script src="js/mini-5.js"&gt;&lt;/script&gt;
+  &lt;script src="js/boss.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+    </div>
+    <p class="filehint">💡 Para probar en tu compu mientras desarrollas: abre el <code class="inline">index.html</code> en el navegador (o usa la extensión "Live Server" de VS Code) y revisa la consola con <code class="inline">F12</code>.</p>
+
+    <h3>🌱 3. Versiona con Git</h3>
+    <p>Dentro de la carpeta del proyecto, en la terminal:</p>
+    <div class="filenote">
+      <div class="fhead"><span class="tag">terminal</span><span class="fname">bash</span></div>
+<pre class="code">git init
+git add .
+git commit -m "feat: estructura inicial de la practica de condicionales"</pre>
+    </div>
+    <p class="filehint">💡 Buena práctica: haz un commit por cada ejercicio que termines (ej: <code class="inline">git commit -m "feat: resuelve mini-1 alcanza la plata"</code>). El historial cuenta tu proceso.</p>
+
+    <h3>☁️ 4. Sube a GitHub y publica en GitHub Pages</h3>
+    <ol class="steps">
+      <li>Crea un repositorio <strong>público</strong> en GitHub (por ejemplo <code class="inline">practica-condicionales</code>). No le agregues README desde GitHub para evitar conflictos.</li>
+      <li>Conecta tu repo local y sube tu código:
+        <div class="filenote" style="margin-top:10px">
+          <div class="fhead"><span class="tag">terminal</span><span class="fname">bash</span></div>
+<pre class="code">git branch -M main
+git remote add origin https://github.com/TU_USUARIO/practica-condicionales.git
+git push -u origin main</pre>
+        </div>
+      </li>
+      <li>En GitHub: <strong>Settings → Pages</strong>.</li>
+      <li>En "Build and deployment", elige <strong>Source: Deploy from a branch</strong>, rama <strong>main</strong>, carpeta <strong>/ (root)</strong> y guarda.</li>
+      <li>Espera 1–2 minutos. Tu sitio quedará en <code class="inline">https://TU_USUARIO.github.io/practica-condicionales/</code></li>
+      <li>Abre esa URL, presiona <code class="inline">F12</code> → "Console" y verifica que se vean las salidas de tus ejercicios.</li>
+    </ol>
+  </section>
 
   <!-- ===================== INDICE ===================== -->
   <nav class="toc">
@@ -348,7 +394,7 @@
     <div class="reqs">
       <div class="titlebar">✅ Qué debe cumplir tu solución</div>
       <ul>
-        <li>Usa las variables <code class="inline">dinero</code> y <code class="inline">precio</code> que ya están declaradas.</li>
+        <li>Declara las variables <code class="inline">dinero</code> y <code class="inline">precio</code>.</li>
         <li>Si <code class="inline">dinero</code> es <strong>mayor o igual</strong> al <code class="inline">precio</code> → imprime <code class="inline">"Te alcanza 🎉"</code> y en otra línea el vuelto (<code class="inline">dinero - precio</code>).</li>
         <li>Si no → imprime <code class="inline">"No te alcanza 😢"</code> y cuánto te falta.</li>
         <li>Debe funcionar igual si cambias los valores de las variables.</li>
@@ -356,7 +402,7 @@
     </div>
 
     <div class="examples">
-      <div class="titlebar">🎯 Entrada → salida esperada</div>
+      <div class="titlebar">🎯 Entrada → salida esperada (en la consola)</div>
       <table>
         <tr><th>dinero</th><th>precio</th><th>Salida esperada</th></tr>
         <tr><td>10000</td><td>7500</td><td>Te alcanza 🎉 · Vuelto: 2500</td></tr>
@@ -365,23 +411,16 @@
       </table>
     </div>
 
-    <div class="editor-block">
-      <div class="editor-head"><div class="dots"><span></span><span></span><span></span></div><span class="fname">mini-1.js</span></div>
-<textarea class="code" spellcheck="false">// Datos de entrada (puedes cambiarlos para probar):
+    <div class="filenote">
+      <div class="fhead"><span class="tag">crea este archivo</span><span class="fname">js/mini-1.js</span></div>
+<pre class="code"><span class="cmt">// Datos de entrada (puedes cambiarlos para probar):</span>
 let dinero = 10000;
 let precio = 7500;
 
-// 👇 Escribe tu if / else aquí abajo
-// Pista: una comparación como (dinero >= precio) devuelve true o false
-
-</textarea>
-      <div class="run-bar">
-        <button class="run">▶ Ejecutar</button>
-        <button class="reset">↺ Reiniciar</button>
-        <span class="hint">Predice la salida antes de apretar Ejecutar.</span>
-      </div>
-      <div class="console"></div>
+<span class="cmt">// 👇 Escribe tu if / else aquí abajo</span>
+<span class="cmt">// Pista: una comparación como (dinero >= precio) devuelve true o false</span></pre>
     </div>
+    <p class="filehint">Usa <code class="inline">console.log(...)</code> para mostrar los resultados en la consola del navegador.</p>
 
     <details class="hint-box">
       <summary>¿Atascado? Abre una pista (no te doy el código)</summary>
@@ -401,7 +440,7 @@ let precio = 7500;
     <div class="reqs">
       <div class="titlebar">✅ Qué debe cumplir tu solución</div>
       <ul>
-        <li>Usa las variables <code class="inline">edad</code>, <code class="inline">tieneEntrada</code> y <code class="inline">conAdultoResponsable</code>.</li>
+        <li>Declara las variables <code class="inline">edad</code>, <code class="inline">tieneEntrada</code> y <code class="inline">conAdultoResponsable</code>.</li>
         <li>Sin entrada NUNCA se pasa, da igual la edad o la compañía.</li>
         <li>Con entrada se pasa si es mayor de edad <strong>O</strong> viene con un adulto responsable.</li>
         <li>Debe funcionar al cambiar cualquiera de los tres valores.</li>
@@ -419,23 +458,15 @@ let precio = 7500;
       </table>
     </div>
 
-    <div class="editor-block">
-      <div class="editor-head"><div class="dots"><span></span><span></span><span></span></div><span class="fname">mini-2.js</span></div>
-<textarea class="code" spellcheck="false">// Datos de entrada (cámbialos para probar los 4 casos):
+    <div class="filenote">
+      <div class="fhead"><span class="tag">crea este archivo</span><span class="fname">js/mini-2.js</span></div>
+<pre class="code"><span class="cmt">// Datos de entrada (cámbialos para probar los 4 casos):</span>
 let edad = 14;
 let tieneEntrada = true;
 let conAdultoResponsable = true;
 
-// 👇 Arma la condición y el if / else aquí
-// Recuerda: && exige que TODO se cumpla, || con que UNA basta
-
-</textarea>
-      <div class="run-bar">
-        <button class="run">▶ Ejecutar</button>
-        <button class="reset">↺ Reiniciar</button>
-        <span class="hint">Prueba los 4 casos de la tabla cambiando las variables.</span>
-      </div>
-      <div class="console"></div>
+<span class="cmt">// 👇 Arma la condición y el if / else aquí</span>
+<span class="cmt">// Recuerda: && exige que TODO se cumpla, || con que UNA basta</span></pre>
     </div>
 
     <details class="hint-box">
@@ -456,7 +487,7 @@ let conAdultoResponsable = true;
     <div class="reqs">
       <div class="titlebar">✅ Qué debe cumplir tu solución</div>
       <ul>
-        <li>Usa la variable <code class="inline">temperatura</code>.</li>
+        <li>Declara la variable <code class="inline">temperatura</code>.</li>
         <li>Cada rango debe imprimir exactamente UNA categoría (nunca dos a la vez).</li>
         <li>Piensa el orden: ¿de menor a mayor o de mayor a menor? Cualquiera sirve, pero sé consistente.</li>
       </ul>
@@ -474,21 +505,13 @@ let conAdultoResponsable = true;
       </table>
     </div>
 
-    <div class="editor-block">
-      <div class="editor-head"><div class="dots"><span></span><span></span><span></span></div><span class="fname">mini-3.js</span></div>
-<textarea class="code" spellcheck="false">// Dato de entrada (prueba con varios de la tabla):
+    <div class="filenote">
+      <div class="fhead"><span class="tag">crea este archivo</span><span class="fname">js/mini-3.js</span></div>
+<pre class="code"><span class="cmt">// Dato de entrada (prueba con varios de la tabla):</span>
 let temperatura = 20;
 
-// 👇 Escribe tu cadena de if / else if / else
-// Tip: si vas de menor a mayor, basta con preguntar "< 5", luego "< 15"...
-
-</textarea>
-      <div class="run-bar">
-        <button class="run">▶ Ejecutar</button>
-        <button class="reset">↺ Reiniciar</button>
-        <span class="hint">Prueba los límites justos: 5, 15, 25 y 35. ¿Caen donde esperas?</span>
-      </div>
-      <div class="console"></div>
+<span class="cmt">// 👇 Escribe tu cadena de if / else if / else</span>
+<span class="cmt">// Tip: si vas de menor a mayor, basta con preguntar "< 5", luego "< 15"...</span></pre>
     </div>
 
     <details class="hint-box">
@@ -509,7 +532,7 @@ let temperatura = 20;
     <div class="reqs">
       <div class="titlebar">✅ Qué debe cumplir tu solución</div>
       <ul>
-        <li>Usa la variable <code class="inline">anio</code>.</li>
+        <li>Declara la variable <code class="inline">anio</code>.</li>
         <li>"Divisible por N" significa que <code class="inline">anio % N === 0</code>.</li>
         <li>Debe respetar la excepción de los siglos (100 y 400).</li>
         <li>Incluye el número del año en el mensaje final.</li>
@@ -527,21 +550,13 @@ let temperatura = 20;
       </table>
     </div>
 
-    <div class="editor-block">
-      <div class="editor-head"><div class="dots"><span></span><span></span><span></span></div><span class="fname">mini-4.js</span></div>
-<textarea class="code" spellcheck="false">// Dato de entrada (prueba los 4 años de la tabla):
+    <div class="filenote">
+      <div class="fhead"><span class="tag">crea este archivo</span><span class="fname">js/mini-4.js</span></div>
+<pre class="code"><span class="cmt">// Dato de entrada (prueba los 4 años de la tabla):</span>
 let anio = 2024;
 
-// 👇 Resuelve la regla del año bisiesto
-// Pista: la condición combina divisibilidad por 4, 100 y 400 con && y ||
-
-</textarea>
-      <div class="run-bar">
-        <button class="run">▶ Ejecutar</button>
-        <button class="reset">↺ Reiniciar</button>
-        <span class="hint">Si te funciona con 2024 pero falla con 1900, revisa la excepción.</span>
-      </div>
-      <div class="console"></div>
+<span class="cmt">// 👇 Resuelve la regla del año bisiesto</span>
+<span class="cmt">// Pista: la condición combina divisibilidad por 4, 100 y 400 con && y ||</span></pre>
     </div>
 
     <details class="hint-box">
@@ -564,6 +579,7 @@ let anio = 2024;
     <div class="reqs">
       <div class="titlebar">✅ Qué debe cumplir tu solución</div>
       <ul>
+        <li>Declara las variables <code class="inline">vidas</code> y <code class="inline">puntaje</code>.</li>
         <li>Crea la variable <code class="inline">estado</code> con un ternario: si <code class="inline">vidas</code> es mayor que 0 → <code class="inline">"Sigues vivo 🎮"</code>, si no → <code class="inline">"Game Over 💀"</code>.</li>
         <li>Crea la variable <code class="inline">mensajePuntaje</code> con otro ternario: si <code class="inline">puntaje</code> es 1000 o más → <code class="inline">"¡Nuevo récord! 🏆"</code>, si no → <code class="inline">"Sigue sumando 💪"</code>.</li>
         <li><strong>Prohibido</strong> usar <code class="inline">if</code> en este ejercicio. Todo con ternario.</li>
@@ -582,28 +598,20 @@ let anio = 2024;
       </table>
     </div>
 
-    <div class="editor-block">
-      <div class="editor-head"><div class="dots"><span></span><span></span><span></span></div><span class="fname">tablero-ternario.js</span></div>
-<textarea class="code" spellcheck="false">// Estado del jugador (cambia los valores para probar los 4 casos):
+    <div class="filenote">
+      <div class="fhead"><span class="tag">crea este archivo</span><span class="fname">js/mini-5.js</span></div>
+<pre class="code"><span class="cmt">// Estado del jugador (cambia los valores para probar los 4 casos):</span>
 let vidas = 3;
 let puntaje = 1500;
 
-// 👇 Usa SOLO el operador ternario (condición ? esto : lo_otro)
-// Ejemplo de la forma:  let resultado = (edad >= 18) ? "Adulto" : "Menor";
-
-</textarea>
-      <div class="run-bar">
-        <button class="run">▶ Ejecutar</button>
-        <button class="reset">↺ Reiniciar</button>
-        <span class="hint">Prueba los 4 casos. Fíjate que vidas y puntaje son decisiones independientes.</span>
-      </div>
-      <div class="console"></div>
+<span class="cmt">// 👇 Usa SOLO el operador ternario (condición ? esto : lo_otro)</span>
+<span class="cmt">// Ejemplo de la forma:  let resultado = (edad >= 18) ? "Adulto" : "Menor";</span></pre>
     </div>
 
     <details class="hint-box">
       <summary>¿Atascado? Abre una pista (no te doy el código)</summary>
       <div class="body">
-        El ternario guarda un VALOR en una variable. Mira la forma de ejemplo que ya está en el editor: la condición va antes del <code class="inline">?</code>, el valor para el caso verdadero entre el <code class="inline">?</code> y el <code class="inline">:</code>, y el valor para el caso falso después del <code class="inline">:</code>. Son dos decisiones separadas (una para <code class="inline">vidas</code>, otra para <code class="inline">puntaje</code>), así que necesitas dos ternarios, cada uno en su propia variable.
+        El ternario guarda un VALOR en una variable. Mira la forma del ejemplo: la condición va antes del <code class="inline">?</code>, el valor para el caso verdadero entre el <code class="inline">?</code> y el <code class="inline">:</code>, y el valor para el caso falso después del <code class="inline">:</code>. Son dos decisiones separadas (una para <code class="inline">vidas</code>, otra para <code class="inline">puntaje</code>), así que necesitas dos ternarios, cada uno en su propia variable.
       </div>
     </details>
 
@@ -652,156 +660,58 @@ let puntaje = 1500;
       </table>
     </div>
 
-    <div class="editor-block">
-      <div class="editor-head"><div class="dots"><span></span><span></span><span></span></div><span class="fname">cajero-seguro.js</span></div>
-<textarea class="code" spellcheck="false">// Estado del cajero (cambia estos valores para probar cada caso):
+    <div class="filenote">
+      <div class="fhead"><span class="tag">crea este archivo</span><span class="fname">js/boss.js</span></div>
+<pre class="code"><span class="cmt">// Estado del cajero (cambia estos valores para probar cada caso):</span>
 let saldo = 50000;
 let montoSolicitado = 20000;
 
-// 👇 Valida EN ORDEN antes de entregar la plata.
-// El orden importa: descarta primero los casos imposibles,
-// y deja el "retiro exitoso" para el final, cuando todo está OK.
-
-</textarea>
-      <div class="run-bar">
-        <button class="run">▶ Ejecutar</button>
-        <button class="reset">↺ Reiniciar</button>
-        <span class="hint">No avances al siguiente caso hasta que el actual dé EXACTO.</span>
-      </div>
-      <div class="console"></div>
+<span class="cmt">// 👇 Valida EN ORDEN antes de entregar la plata.</span>
+<span class="cmt">// El orden importa: descarta primero los casos imposibles,</span>
+<span class="cmt">// y deja el "retiro exitoso" para el final, cuando todo está OK.</span></pre>
     </div>
 
     <details class="hint-box">
       <summary>¿Atascado? Abre una pista (no te doy el código)</summary>
       <div class="body">
-        Piensa en una "puerta de seguridad" por cada regla, en orden. La estructura es una cadena <code class="inline">if / else if / else</code>: cada <code class="inline">else if</code> es una validación nueva, y solo se evalúa si las anteriores pasaron. "Múltiplo de 1000" se detecta con el resto: <code class="inline">montoSolicitado % 1000 !== 0</code>. El <code class="inline">else</code> final es el único lugar donde entregas la plata, porque para llegar ahí ya pasaste todos los filtros. ¿Notas que es el mismo patrón "validar antes de actuar" del ejercicio de la edad segura?
+        Piensa en una "puerta de seguridad" por cada regla, en orden. La estructura es una cadena <code class="inline">if / else if / else</code>: cada <code class="inline">else if</code> es una validación nueva, y solo se evalúa si las anteriores pasaron. "Múltiplo de 1000" se detecta con el resto: <code class="inline">montoSolicitado % 1000 !== 0</code>. El <code class="inline">else</code> final es el único lugar donde entregas la plata, porque para llegar ahí ya pasaste todos los filtros.
       </div>
     </details>
 
     <details class="hint-box">
-      <summary>🔥 Cuando lo tengas: 3 mejoras para los más rápidos</summary>
+      <summary>🔥 Cuando lo tengas: 4 mejoras para los más rápidos</summary>
       <div class="body">
         <ul style="margin:0; padding-left:20px;">
           <li>Agrega una comisión de $300 si el monto es mayor a $30000 (resta extra al saldo).</li>
-          <li>Valida que <code class="inline">montoSolicitado</code> sea realmente un número (<code class="inline">typeof</code> + <code class="inline">isNaN</code>), como hicimos con la edad segura.</li>
+          <li>Valida que <code class="inline">montoSolicitado</code> sea realmente un número (<code class="inline">typeof</code> + <code class="inline">isNaN</code>).</li>
           <li>Limita el retiro máximo a $200000 por operación con un mensaje propio.</li>
+          <li>Usa un <strong>operador ternario</strong> para que el comprobante diga <code class="inline">"con comisión"</code> o <code class="inline">"sin comisión"</code> en una sola línea.</li>
         </ul>
       </div>
     </details>
   </section>
 
+  <!-- ===================== CHECKLIST DE ENTREGA ===================== -->
+  <div class="checklist">
+    <h2>📦 Checklist de entrega</h2>
+    <ul>
+      <li>Los 6 archivos <code class="inline">.js</code> creados dentro de la carpeta <code class="inline">js/</code>.</li>
+      <li>El <code class="inline">index.html</code> enlaza los 6 scripts y abre sin errores.</li>
+      <li>Cada ejercicio imprime en consola la salida esperada de su tabla.</li>
+      <li>El repositorio está en GitHub con varios commits (idealmente uno por ejercicio).</li>
+      <li>GitHub Pages activado y funcionando: la URL pública carga el sitio.</li>
+      <li>Al abrir la URL + <code class="inline">F12</code> → "Console", se ven todas las salidas.</li>
+      <li>Entregas el <strong>link de GitHub Pages</strong> y el <strong>link del repositorio</strong>.</li>
+    </ul>
+  </div>
+
   <p style="margin-top:40px"><a class="back-top" href="#">↑ Volver al inicio</a></p>
 
   <footer>
-    🎮 Práctica guiada — Módulo 4 · Lección 02 · Condicionales + repaso de variables, operadores y expresiones<br>
-    Escribe, ejecuta, equivócate y vuelve a intentar. Así se aprende a programar de verdad.
+    🎮 Práctica guiada — Módulo 4 · Lección 02 · Condicionales, operador ternario + repaso de variables, operadores y expresiones<br>
+    Crea, versiona, publica y vuelve a intentar. Así se trabaja en serio.
   </footer>
 
 </div>
-
-<script>
-  /* ============================================================
-     Runner pedagógico para PRACTICAR:
-     - Ejecuta lo que el ALUMNO escribió en cada textarea.
-     - Captura console.log e imprime en la "consola" del bloque.
-     - El botón Reiniciar restaura el código base de ese ejercicio.
-     - Una barra de progreso cuenta cuántos desafíos ya ejecutaron
-       al menos una vez (motivación, no corrección automática).
-     Es código educativo controlado: corre en un Function aislado,
-     con una consola local inyectada (no toca el console global).
-     ============================================================ */
-  (function () {
-    "use strict";
-
-    var blocks = Array.prototype.slice.call(document.querySelectorAll('.editor-block'));
-    var total = blocks.length;
-    var ejecutados = {};
-
-    var fill = document.getElementById('progressFill');
-    var countEl = document.getElementById('progressCount');
-
-    function actualizarProgreso() {
-      var n = Object.keys(ejecutados).length;
-      fill.style.width = (total ? (n / total) * 100 : 0) + '%';
-      countEl.textContent = n + ' / ' + total + ' desafíos ejecutados';
-    }
-
-    function format(v) {
-      if (typeof v === 'string') return v;
-      if (Array.isArray(v)) return '[ ' + v.map(function (x) {
-        return typeof x === 'string' ? '"' + x + '"' : format(x);
-      }).join(', ') + ' ]';
-      if (v === null) return 'null';
-      if (typeof v === 'undefined') return 'undefined';
-      if (typeof v === 'object') {
-        try { return JSON.stringify(v); } catch (e) { return String(v); }
-      }
-      return String(v);
-    }
-
-    function escapeHtml(s) {
-      return String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-    }
-
-    blocks.forEach(function (block, index) {
-      var btnRun = block.querySelector('button.run');
-      var btnReset = block.querySelector('button.reset');
-      var area = block.querySelector('textarea.code');
-      var out = block.querySelector('.console');
-      if (!btnRun || !area || !out) return;
-
-      // Guardamos el código base para poder reiniciar
-      var original = area.value;
-
-      // Permite tabular dentro del textarea sin saltar de foco
-      area.addEventListener('keydown', function (e) {
-        if (e.key === 'Tab') {
-          e.preventDefault();
-          var start = area.selectionStart;
-          var end = area.selectionEnd;
-          area.value = area.value.substring(0, start) + '  ' + area.value.substring(end);
-          area.selectionStart = area.selectionEnd = start + 2;
-        }
-      });
-
-      btnRun.addEventListener('click', function () {
-        var source = area.value;
-        var lines = [];
-        function fakeLog() {
-          var parts = Array.prototype.slice.call(arguments).map(format);
-          lines.push(parts.join(' '));
-        }
-
-        out.classList.add('show');
-        try {
-          var runner = new Function('console', '"use strict";\n' + source);
-          runner({ log: fakeLog, error: fakeLog, warn: fakeLog, info: fakeLog });
-          out.innerHTML = '<span class="out-label">▶ salida de consola</span>' +
-                          escapeHtml(lines.join('\n') || '(sin salida — ¿usaste console.log?)');
-          ejecutados[index] = true;
-          actualizarProgreso();
-        } catch (err) {
-          out.innerHTML = '<span class="out-label">▶ salida de consola</span>' +
-                          '<span class="err">⛔ ' + escapeHtml(err.name + ': ' + err.message) +
-                          '\n\nRevisa la línea con error. Un punto y coma, una llave o un paréntesis suele ser el culpable.</span>';
-        }
-      });
-
-      if (btnReset) {
-        btnReset.addEventListener('click', function () {
-          area.value = original;
-          out.classList.remove('show');
-          out.innerHTML = '';
-          area.focus();
-        });
-      }
-    });
-
-    actualizarProgreso();
-  })();
-</script>
 </body>
 </html>
