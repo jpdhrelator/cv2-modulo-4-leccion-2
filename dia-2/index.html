@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Ejercicios PARA PRACTICAR de Variables, Operadores, Expresiones y Sentencias Condicionales en JavaScript. Módulo 4 · Lección 2. El alumno escribe el código en un editor real, lo ejecuta y se autocorrige. NO trae soluciones." />
+<title>🎮 Práctica · M4 L2 · Condicionales y repaso de ayer</title>
+<style>
+  /* ============================================================
+     EJERCICIOS PARA PRACTICAR — Tema "aula clara"
+     MISMA identidad visual que el material de clase y los ejercicios
+     resueltos (coherencia). La diferencia: aquí NO hay solución a la
+     vista. El alumno escribe su propio código en un editor real,
+     lo ejecuta y compara contra el resultado esperado.
+     ============================================================ */
+  :root {
+    --bg: #f5f7fb;
+    --paper: #ffffff;
+    --ink: #14223b;
+    --ink-soft: #4a5a76;
+    --brand: #2563eb;
+    --brand-2: #7c3aed;
+    --accent: #0ea5a4;
+    --warn: #b45309;
+    --warn-bg: #fff7ed;
+    --ok: #15803d;
+    --ok-bg: #f0fdf4;
+    --code-bg: #0f172a;
+    --code-ink: #e2e8f0;
+    --code-green: #6ee7b7;
+    --border: #dbe3ee;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.7;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 32px 24px 96px; }
+
+  /* ---------- HERO ---------- */
+  header.hero {
+    background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    color: #fff;
+    border-radius: 20px;
+    padding: 44px 40px;
+    margin-bottom: 16px;
+  }
+  header.hero .kicker {
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    font-size: .8rem;
+    opacity: .9;
+    margin: 0 0 12px;
+  }
+  header.hero h1 { margin: 0 0 12px; font-size: clamp(1.8rem, 4.5vw, 2.8rem); line-height: 1.1; }
+  header.hero p { margin: 0; font-size: 1.1rem; opacity: .95; max-width: 760px; }
+
+  /* ---------- BARRA DE PROGRESO ---------- */
+  .progress-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 28px;
+    margin-bottom: 28px;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .progress-card .label { font-weight: 700; color: var(--ink); white-space: nowrap; }
+  .progress-bar {
+    flex: 1; min-width: 200px; height: 16px; background: #e2e8f0;
+    border-radius: 999px; overflow: hidden;
+  }
+  .progress-bar .fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--ok), var(--accent));
+    transition: width .4s ease;
+  }
+  .progress-card .count { font-variant-numeric: tabular-nums; color: var(--ink-soft); white-space: nowrap; }
+
+  /* ---------- INDICE ---------- */
+  nav.toc {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 40px;
+  }
+  nav.toc h2 { margin: 0 0 14px; font-size: 1rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-soft); }
+  nav.toc ol { margin: 0; padding-left: 22px; }
+  nav.toc li { margin: 8px 0; }
+  nav.toc a { color: var(--brand); text-decoration: none; }
+  nav.toc a:hover { text-decoration: underline; }
+
+  /* ---------- BLOQUES ---------- */
+  .part-title {
+    display: flex; align-items: center; gap: 14px;
+    margin: 56px 0 8px;
+    padding-bottom: 14px;
+    border-bottom: 3px solid var(--brand);
+    flex-wrap: wrap;
+  }
+  .part-title .pill {
+    background: var(--brand); color: #fff;
+    font-size: .8rem; letter-spacing: .15em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 999px;
+  }
+  .part-title h2 { margin: 0; font-size: 1.7rem; }
+
+  section.topic {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 34px;
+    margin-top: 28px;
+    box-shadow: 0 1px 3px rgba(20,34,59,.04);
+  }
+  section.topic h3 { margin: 0 0 6px; font-size: 1.4rem; color: var(--ink); }
+  section.topic .lead { color: var(--ink-soft); margin: 0 0 18px; }
+  section.topic p { margin: 14px 0; }
+  section.topic strong { color: var(--ink); }
+  section.topic ul { padding-left: 24px; }
+  section.topic li { margin: 8px 0; }
+
+  /* etiqueta de dificultad */
+  .badge {
+    display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.05em;
+    text-transform:uppercase; padding:4px 10px; border-radius:999px; margin-left:10px;
+    vertical-align:middle;
+  }
+  .badge.b1{ background:#dcfce7; color:#166534; }
+  .badge.b2{ background:#fef9c3; color:#854d0e; }
+  .badge.b3{ background:#fee2e2; color:#991b1b; }
+  .badge.boss{ background:#1e293b; color:#fde68a; }
+
+  .enunciado {
+    background: #eff6ff;
+    border-left: 5px solid var(--brand);
+    border-radius: 10px;
+    padding: 16px 22px;
+    margin: 18px 0;
+  }
+  .enunciado::before { content: "📝 Tu desafío — "; font-weight: 700; color: var(--brand); }
+
+  .reqs {
+    background: var(--ok-bg);
+    border-left: 5px solid var(--ok);
+    border-radius: 10px;
+    padding: 8px 22px 16px;
+    margin: 18px 0;
+  }
+  .reqs .titlebar { font-weight: 700; color: var(--ok); margin: 12px 0 4px; }
+
+  .examples {
+    background: #ecfeff;
+    border-left: 5px solid var(--accent);
+    border-radius: 10px;
+    padding: 8px 22px 16px;
+    margin: 18px 0;
+  }
+  .examples .titlebar { font-weight: 700; color: var(--accent); margin: 12px 0 8px; }
+  .examples table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  .examples th, .examples td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #cffafe; }
+  .examples th { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-soft); }
+  .examples td { font-family: "SF Mono", Menlo, Consolas, monospace; }
+
+  code.inline {
+    background: #eef2f7;
+    color: #b91c63;
+    padding: 2px 7px;
+    border-radius: 6px;
+    font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    font-size: .92em;
+  }
+
+  /* ---------- EDITOR ---------- */
+  .editor-block {
+    margin: 22px 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .editor-head {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #1e293b;
+    padding: 10px 16px;
+  }
+  .editor-head .dots { display: flex; gap: 7px; }
+  .editor-head .dots span { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .editor-head .dots span:nth-child(1){ background:#ff5f56; }
+  .editor-head .dots span:nth-child(2){ background:#ffbd2e; }
+  .editor-head .dots span:nth-child(3){ background:#27c93f; }
+  .editor-head .fname { color: #94a3b8; font-size: .8rem; font-family: "SF Mono", Menlo, monospace; }
+
+  textarea.code {
+    display: block; width: 100%; margin: 0; border: 0;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 20px 22px;
+    font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    font-size: 1rem;
+    line-height: 1.6;
+    tab-size: 2;
+    min-height: 220px;
+    resize: vertical;
+    outline: none;
+  }
+  textarea.code:focus { box-shadow: inset 0 0 0 2px var(--brand); }
+
+  .run-bar {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    background: #0b1220;
+    padding: 12px 16px;
+    border-top: 1px solid #1e293b;
+  }
+  button.run, button.reset, button.toggle {
+    border: none; border-radius: 8px; font-family: inherit;
+    font-size: .92rem; font-weight: 600; cursor: pointer;
+    padding: 9px 20px; transition: filter .15s ease;
+  }
+  button.run { background: var(--ok); color: #fff; }
+  button.run:hover { filter: brightness(1.12); }
+  button.reset { background: #334155; color: #e2e8f0; }
+  button.reset:hover { filter: brightness(1.18); }
+  button.run:focus-visible, button.reset:focus-visible, button.toggle:focus-visible {
+    outline: 3px solid #7dd3fc; outline-offset: 2px;
+  }
+  .run-bar .hint { color: #64748b; font-size: .82rem; }
+
+  .console {
+    background: #060a14;
+    color: var(--code-green);
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: .95rem;
+    padding: 0 22px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease, padding .3s ease;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .console.show { max-height: 520px; padding: 16px 22px; overflow-y: auto; }
+  .console .out-label { color: #475569; font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; display: block; margin-bottom: 8px; }
+  .console .err { color: #fca5a5; }
+
+  /* ---------- PISTA PLEGABLE ---------- */
+  details.hint-box {
+    margin: 16px 0 0;
+    border: 1px dashed #c7b3f0;
+    border-radius: 10px;
+    background: #faf7ff;
+    padding: 0 18px;
+  }
+  details.hint-box > summary {
+    cursor: pointer; list-style: none;
+    padding: 14px 0; font-weight: 700; color: var(--brand-2);
+    display: flex; align-items: center; gap: 8px;
+  }
+  details.hint-box > summary::-webkit-details-marker { display: none; }
+  details.hint-box > summary::before { content: "💡"; }
+  details.hint-box[open] > summary::after { content: " (ciérrala e inténtalo de nuevo)"; font-weight: 400; color: var(--ink-soft); font-size: .85rem; }
+  details.hint-box .body { padding: 0 0 16px; color: var(--ink-soft); }
+  details.hint-box .body code.inline { background: #efe7ff; color: #6d28d9; }
+
+  footer { text-align: center; color: var(--ink-soft); font-size: .9rem; margin-top: 64px; }
+  a.back-top { color: var(--brand); text-decoration: none; font-size: .85rem; }
+
+  .reminder {
+    background: var(--warn-bg);
+    border-left: 5px solid var(--warn);
+    border-radius: 10px;
+    padding: 16px 22px;
+    margin: 24px 0;
+  }
+  .reminder::before { content: "🧭 Antes de empezar — "; font-weight: 700; color: var(--warn); }
+
+  .concept {
+    background: #faf5ff;
+    border-left: 5px solid var(--brand-2);
+    border-radius: 10px;
+    padding: 16px 22px;
+    margin: 18px 0;
+  }
+  .concept::before { content: "🧠 Concepto nuevo — "; font-weight: 700; color: var(--brand-2); }
+  .concept code.inline { background: #efe7ff; color: #6d28d9; }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .wrap { padding: 20px 14px 64px; }
+    section.topic { padding: 22px 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero">
+    <p class="kicker">Módulo 4 · Lección 02 · Ejercicios para practicar</p>
+    <h1>Condicionales en acción 🎮</h1>
+    <p>6 desafíos para <strong>escribir tú mismo</strong> el código: 5 mini-retos y 1 desafío final. Repasas lo de ayer (variables, operadores, expresiones) y le metes diente a las <strong>sentencias condicionales</strong> y al <strong>operador ternario</strong>. Acá no hay soluciones servidas: escribes, ejecutas y comparas contra el resultado esperado. <strong>Equivocarte está permitido. Rendirte no.</strong></p>
+  </header>
+
+  <!-- ===================== PROGRESO ===================== -->
+  <div class="progress-card">
+    <span class="label">🏆 Tu progreso</span>
+    <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+    <span class="count" id="progressCount">0 / 5 desafíos ejecutados</span>
+  </div>
+
+  <!-- ===================== RECORDATORIO ===================== -->
+  <div class="reminder">no escribas una sola línea hasta entender QUÉ te pide el ejercicio. Lee el desafío, mira los ejemplos de entrada y salida, imagina el camino en tu cabeza, y RECIÉN AHÍ tocas el teclado. El que entiende el concepto resuelve cualquier variante; el que copia, se queda pegado en el primer cambio.</div>
+
+  <!-- ===================== INDICE ===================== -->
+  <nav class="toc">
+    <h2>🗺️ Ruta de desafíos</h2>
+    <ol>
+      <li><a href="#e1">Mini 1 · ¿Te alcanza la plata? <em>(repaso + tu primer if/else)</em></a></li>
+      <li><a href="#e2">Mini 2 · El portero del cine <em>(operadores lógicos en el if)</em></a></li>
+      <li><a href="#e3">Mini 3 · Clasificador de temperatura <em>(else if encadenado)</em></a></li>
+      <li><a href="#e4">Mini 4 · ¿Año bisiesto? <em>(módulo, lógicos y precedencia)</em></a></li>
+      <li><a href="#e5">Mini 5 · El tablero del videojuego <em>(operador ternario)</em></a></li>
+      <li><a href="#boss">DESAFÍO FINAL · Cajero automático seguro <em>(integra TODO)</em></a></li>
+    </ol>
+  </nav>
+
+  <!-- ============================================================
+       PARTE 1 — CALENTAMIENTO
+       ============================================================ -->
+  <div class="part-title">
+    <span class="pill">Mini-retos</span>
+    <h2>Calienta motores</h2>
+  </div>
+
+  <!-- E1 -->
+  <section class="topic" id="e1">
+    <h3>Mini 1 · ¿Te alcanza la plata? <span class="badge b1">Fácil</span></h3>
+    <p class="lead">Repaso de variables y comparación + tu primera decisión con <code class="inline">if / else</code>.</p>
+
+    <div class="enunciado">Tienes una cantidad de <strong>dinero</strong> en el bolsillo y quieres comprar algo que tiene un <strong>precio</strong>. Escribe el código que decida e imprima en consola si <strong>te alcanza</strong> para comprarlo o <strong>no te alcanza</strong>. Si te alcanza, muestra además cuánto vuelto te queda.</div>
+
+    <div class="reqs">
+      <div class="titlebar">✅ Qué debe cumplir tu solución</div>
+      <ul>
+        <li>Usa las variables <code class="inline">dinero</code> y <code class="inline">precio</code> que ya están declaradas.</li>
+        <li>Si <code class="inline">dinero</code> es <strong>mayor o igual</strong> al <code class="inline">precio</code> → imprime <code class="inline">"Te alcanza 🎉"</code> y en otra línea el vuelto (<code class="inline">dinero - precio</code>).</li>
+        <li>Si no → imprime <code class="inline">"No te alcanza 😢"</code> y cuánto te falta.</li>
+        <li>Debe funcionar igual si cambias los valores de las variables.</li>
+      </ul>
+    </div>
+
+    <div class="examples">
+      <div class="titlebar">🎯 Entrada → salida esperada</div>
+      <table>
+        <tr><th>dinero</th><th>precio</th><th>Salida esperada</th></tr>
+        <tr><td>10000</td><td>7500</td><td>Te alcanza 🎉 · Vuelto: 2500</td></tr>
+        <tr><td>5000</td><td>7500</td><td>No te alcanza 😢 · Te faltan: 2500</td></tr>
+        <tr><td>7500</td><td>7500</td><td>Te alcanza 🎉 · Vuelto: 0</td></tr>
+      </table>
+    </div>
+
+    <div class="editor-block">
+      <div class="editor-head"><div class="dots"><span></span><span></span><span></span></div><span class="fname">mini-1.js</span></div>
+<textarea class="code" spellcheck="false">// Datos de entrada (puedes cambiarlos para probar):
+let dinero = 10000;
+let precio = 7500;
+
+// 👇 Escribe tu if / else aquí abajo
+// Pista: una comparación como (dinero >= precio) devuelve true o false
+
+</textarea>
+      <div class="run-bar">
+        <button class="run">▶ Ejecutar</button>
+        <button class="reset">↺ Reiniciar</button>
+        <span class="hint">Predice la salida antes de apretar Ejecutar.</span>
+      </div>
+      <div class="console"></div>
+    </div>
+
+    <details class="hint-box">
+      <summary>¿Atascado? Abre una pista (no te doy el código)</summary>
+      <div class="body">
+        Necesitas UNA pregunta de sí/no: <code class="inline">¿dinero es mayor o igual que precio?</code>. Esa pregunta va dentro de los paréntesis del <code class="inline">if ( ... )</code>. Dentro de las llaves <code class="inline">{ }</code> del <code class="inline">if</code> va lo que pasa cuando la respuesta es SÍ; dentro del <code class="inline">else { }</code>, lo que pasa cuando es NO. El vuelto y lo que falta son la misma resta <code class="inline">dinero - precio</code>… ¿en qué orden según cada caso?
+      </div>
+    </details>
+  </section>
+
+  <!-- E2 -->
+  <section class="topic" id="e2">
+    <h3>Mini 2 · El portero del cine <span class="badge b2">Media</span></h3>
+    <p class="lead">Combinar varias condiciones con los operadores lógicos <code class="inline">&amp;&amp;</code>, <code class="inline">||</code> y <code class="inline">!</code> dentro del <code class="inline">if</code>.</p>
+
+    <div class="enunciado">Eres el portero de un cine que da una función para mayores de 18. Una persona puede entrar SI <strong>tiene 18 años o más</strong> <em>Y</em> <strong>compró su entrada</strong>. Pero hay una excepción: si viene <strong>acompañada de un adulto responsable</strong>, puede entrar aunque sea menor (siempre que tenga entrada). Escribe la lógica que imprima <code class="inline">"Puedes pasar 🎬"</code> o <code class="inline">"Acceso denegado 🚫"</code>.</div>
+
+    <div class="reqs">
+      <div class="titlebar">✅ Qué debe cumplir tu solución</div>
+      <ul>
+        <li>Usa las variables <code class="inline">edad</code>, <code class="inline">tieneEntrada</code> y <code class="inline">conAdultoResponsable</code>.</li>
+        <li>Sin entrada NUNCA se pasa, da igual la edad o la compañía.</li>
+        <li>Con entrada se pasa si es mayor de edad <strong>O</strong> viene con un adulto responsable.</li>
+        <li>Debe funcionar al cambiar cualquiera de los tres valores.</li>
+      </ul>
+    </div>
+
+    <div class="examples">
+      <div class="titlebar">🎯 Casos de prueba</div>
+      <table>
+        <tr><th>edad</th><th>tieneEntrada</th><th>conAdulto</th><th>Salida</th></tr>
+        <tr><td>25</td><td>true</td><td>false</td><td>Puedes pasar 🎬</td></tr>
+        <tr><td>14</td><td>true</td><td>true</td><td>Puedes pasar 🎬</td></tr>
+        <tr><td>14</td><td>true</td><td>false</td><td>Acceso denegado 🚫</td></tr>
+        <tr><td>40</td><td>false</td><td>false</td><td>Acceso denegado 🚫</td></tr>
+      </table>
+    </div>
+
+    <div class="editor-block">
+      <div class="editor-head"><div class="dots"><span></span><span></span><span></span></div><span class="fname">mini-2.js</span></div>
+<textarea class="code" spellcheck="false">// Datos de entrada (cámbialos para probar los 4 casos):
+let edad = 14;
+let tieneEntrada = true;
+let conAdultoResponsable = true;
+
+// 👇 Arma la condición y el if / else aquí
+// Recuerda: && exige que TODO se cumpla, || con que UNA basta
+
+</textarea>
+      <div class="run-bar">
+        <button class="run">▶ Ejecutar</button>
+        <button class="reset">↺ Reiniciar</button>
+        <span class="hint">Prueba los 4 casos de la tabla cambiando las variables.</span>
+      </div>
+      <div class="console"></div>
+    </div>
+
+    <details class="hint-box">
+      <summary>¿Atascado? Abre una pista (no te doy el código)</summary>
+      <div class="body">
+        Hay DOS reglas que se combinan. Primero la regla de "puede por edad o por compañía": eso es un <code class="inline">||</code>. Pero ESA regla solo vale si además <code class="inline">tieneEntrada</code> es verdadero: eso es un <code class="inline">&amp;&amp;</code> que envuelve a la anterior. Ojo con los <strong>paréntesis</strong>: <code class="inline">tieneEntrada &amp;&amp; (mayorDeEdad || conAdulto)</code> no es lo mismo que sin paréntesis. Repasa el ejercicio de precedencia de ayer.
+      </div>
+    </details>
+  </section>
+
+  <!-- E3 -->
+  <section class="topic" id="e3">
+    <h3>Mini 3 · Clasificador de temperatura <span class="badge b2">Media</span></h3>
+    <p class="lead">Varios caminos posibles con <code class="inline">else if</code> encadenado. El ORDEN importa.</p>
+
+    <div class="enunciado">Recibes una <strong>temperatura</strong> en grados Celsius y debes imprimir cómo está el día: <strong>"Helado 🥶"</strong> (menos de 5), <strong>"Frío 🧥"</strong> (de 5 a 14), <strong>"Templado 😎"</strong> (de 15 a 24), <strong>"Caluroso 🥵"</strong> (de 25 a 34) o <strong>"Infierno 🔥"</strong> (35 o más). Resuélvelo con <code class="inline">if</code> / <code class="inline">else if</code> / <code class="inline">else</code>.</div>
+
+    <div class="reqs">
+      <div class="titlebar">✅ Qué debe cumplir tu solución</div>
+      <ul>
+        <li>Usa la variable <code class="inline">temperatura</code>.</li>
+        <li>Cada rango debe imprimir exactamente UNA categoría (nunca dos a la vez).</li>
+        <li>Piensa el orden: ¿de menor a mayor o de mayor a menor? Cualquiera sirve, pero sé consistente.</li>
+      </ul>
+    </div>
+
+    <div class="examples">
+      <div class="titlebar">🎯 Entrada → salida esperada</div>
+      <table>
+        <tr><th>temperatura</th><th>Salida esperada</th></tr>
+        <tr><td>2</td><td>Helado 🥶</td></tr>
+        <tr><td>10</td><td>Frío 🧥</td></tr>
+        <tr><td>20</td><td>Templado 😎</td></tr>
+        <tr><td>30</td><td>Caluroso 🥵</td></tr>
+        <tr><td>38</td><td>Infierno 🔥</td></tr>
+      </table>
+    </div>
+
+    <div class="editor-block">
+      <div class="editor-head"><div class="dots"><span></span><span></span><span></span></div><span class="fname">mini-3.js</span></div>
+<textarea class="code" spellcheck="false">// Dato de entrada (prueba con varios de la tabla):
+let temperatura = 20;
+
+// 👇 Escribe tu cadena de if / else if / else
+// Tip: si vas de menor a mayor, basta con preguntar "< 5", luego "< 15"...
+
+</textarea>
+      <div class="run-bar">
+        <button class="run">▶ Ejecutar</button>
+        <button class="reset">↺ Reiniciar</button>
+        <span class="hint">Prueba los límites justos: 5, 15, 25 y 35. ¿Caen donde esperas?</span>
+      </div>
+      <div class="console"></div>
+    </div>
+
+    <details class="hint-box">
+      <summary>¿Atascado? Abre una pista (no te doy el código)</summary>
+      <div class="body">
+        El truco del <code class="inline">else if</code> es que se entra en la PRIMERA condición verdadera y se ignora el resto. Si vas de menor a mayor, cuando preguntas <code class="inline">temperatura &lt; 15</code> ya tienes garantizado que NO era menor que 5 (porque esa pregunta vino antes). Por eso no necesitas escribir rangos completos como <code class="inline">temperatura >= 5 &amp;&amp; temperatura &lt; 15</code>: el orden hace ese trabajo por ti. El último caso (35+) cae solo en el <code class="inline">else</code>.
+      </div>
+    </details>
+  </section>
+
+  <!-- E4 -->
+  <section class="topic" id="e4">
+    <h3>Mini 4 · ¿Año bisiesto? <span class="badge b3">Desafío</span></h3>
+    <p class="lead">Repaso del operador resto <code class="inline">%</code> + lógicos + una regla con trampa.</p>
+
+    <div class="enunciado">Un año es <strong>bisiesto</strong> si es divisible por 4… <em>pero</em> no si es divisible por 100… <em>salvo</em> que también sea divisible por 400. (Sí, 1900 NO fue bisiesto, pero 2000 SÍ). Escribe el código que imprima <code class="inline">"AÑO es bisiesto ✅"</code> o <code class="inline">"AÑO no es bisiesto ❌"</code>.</div>
+
+    <div class="reqs">
+      <div class="titlebar">✅ Qué debe cumplir tu solución</div>
+      <ul>
+        <li>Usa la variable <code class="inline">anio</code>.</li>
+        <li>"Divisible por N" significa que <code class="inline">anio % N === 0</code>.</li>
+        <li>Debe respetar la excepción de los siglos (100 y 400).</li>
+        <li>Incluye el número del año en el mensaje final.</li>
+      </ul>
+    </div>
+
+    <div class="examples">
+      <div class="titlebar">🎯 Entrada → salida esperada</div>
+      <table>
+        <tr><th>anio</th><th>Salida esperada</th></tr>
+        <tr><td>2024</td><td>2024 es bisiesto ✅</td></tr>
+        <tr><td>2023</td><td>2023 no es bisiesto ❌</td></tr>
+        <tr><td>1900</td><td>1900 no es bisiesto ❌</td></tr>
+        <tr><td>2000</td><td>2000 es bisiesto ✅</td></tr>
+      </table>
+    </div>
+
+    <div class="editor-block">
+      <div class="editor-head"><div class="dots"><span></span><span></span><span></span></div><span class="fname">mini-4.js</span></div>
+<textarea class="code" spellcheck="false">// Dato de entrada (prueba los 4 años de la tabla):
+let anio = 2024;
+
+// 👇 Resuelve la regla del año bisiesto
+// Pista: la condición combina divisibilidad por 4, 100 y 400 con && y ||
+
+</textarea>
+      <div class="run-bar">
+        <button class="run">▶ Ejecutar</button>
+        <button class="reset">↺ Reiniciar</button>
+        <span class="hint">Si te funciona con 2024 pero falla con 1900, revisa la excepción.</span>
+      </div>
+      <div class="console"></div>
+    </div>
+
+    <details class="hint-box">
+      <summary>¿Atascado? Abre una pista (no te doy el código)</summary>
+      <div class="body">
+        Tradúcelo a una sola frase booleana: es bisiesto cuando <em>(es divisible por 4 Y no por 100)</em> <strong>O</strong> <em>(es divisible por 400)</em>. Pásalo a código con <code class="inline">%</code>, <code class="inline">===</code>, <code class="inline">&amp;&amp;</code> y <code class="inline">||</code>, cuidando los paréntesis. "No divisible por 100" es <code class="inline">anio % 100 !== 0</code>. Guarda esa frase entera en una variable booleana y úsala en tu <code class="inline">if</code>.
+      </div>
+    </details>
+  </section>
+
+  <!-- E5 -->
+  <section class="topic" id="e5">
+    <h3>Mini 5 · El tablero del videojuego <span class="badge b2">Media</span></h3>
+    <p class="lead">El <strong>operador ternario</strong>: un <code class="inline">if / else</code> comprimido en una sola línea, pensado para <em>elegir un valor</em>.</p>
+
+    <div class="concept">el ternario tiene la forma <code class="inline">condición ? valorSiVerdadero : valorSiFalso</code>. Se lee como una pregunta: "¿condición? entonces esto, si no, lo otro". Sirve para <strong>elegir entre dos valores</strong> (un texto, un número), NO para ejecutar bloques largos de código. Si la decisión es simple, queda elegante; si es compleja o tiene muchos caminos, vuelve al <code class="inline">if / else</code>. La herramienta correcta para cada trabajo.</div>
+
+    <div class="enunciado">Estás armando el tablero (HUD) de un videojuego. Según las <strong>vidas</strong> y el <strong>puntaje</strong> del jugador, arma dos mensajes usando SOLO el operador ternario (nada de <code class="inline">if / else</code> en este ejercicio: ese es el reto). Luego imprímelos.</div>
+
+    <div class="reqs">
+      <div class="titlebar">✅ Qué debe cumplir tu solución</div>
+      <ul>
+        <li>Crea la variable <code class="inline">estado</code> con un ternario: si <code class="inline">vidas</code> es mayor que 0 → <code class="inline">"Sigues vivo 🎮"</code>, si no → <code class="inline">"Game Over 💀"</code>.</li>
+        <li>Crea la variable <code class="inline">mensajePuntaje</code> con otro ternario: si <code class="inline">puntaje</code> es 1000 o más → <code class="inline">"¡Nuevo récord! 🏆"</code>, si no → <code class="inline">"Sigue sumando 💪"</code>.</li>
+        <li><strong>Prohibido</strong> usar <code class="inline">if</code> en este ejercicio. Todo con ternario.</li>
+        <li>Imprime <code class="inline">estado</code> y <code class="inline">mensajePuntaje</code>.</li>
+      </ul>
+    </div>
+
+    <div class="examples">
+      <div class="titlebar">🎯 Entrada → salida esperada</div>
+      <table>
+        <tr><th>vidas</th><th>puntaje</th><th>Salida esperada</th></tr>
+        <tr><td>3</td><td>1500</td><td>Sigues vivo 🎮 · ¡Nuevo récord! 🏆</td></tr>
+        <tr><td>0</td><td>1500</td><td>Game Over 💀 · ¡Nuevo récord! 🏆</td></tr>
+        <tr><td>2</td><td>400</td><td>Sigues vivo 🎮 · Sigue sumando 💪</td></tr>
+        <tr><td>0</td><td>0</td><td>Game Over 💀 · Sigue sumando 💪</td></tr>
+      </table>
+    </div>
+
+    <div class="editor-block">
+      <div class="editor-head"><div class="dots"><span></span><span></span><span></span></div><span class="fname">tablero-ternario.js</span></div>
+<textarea class="code" spellcheck="false">// Estado del jugador (cambia los valores para probar los 4 casos):
+let vidas = 3;
+let puntaje = 1500;
+
+// 👇 Usa SOLO el operador ternario (condición ? esto : lo_otro)
+// Ejemplo de la forma:  let resultado = (edad >= 18) ? "Adulto" : "Menor";
+
+</textarea>
+      <div class="run-bar">
+        <button class="run">▶ Ejecutar</button>
+        <button class="reset">↺ Reiniciar</button>
+        <span class="hint">Prueba los 4 casos. Fíjate que vidas y puntaje son decisiones independientes.</span>
+      </div>
+      <div class="console"></div>
+    </div>
+
+    <details class="hint-box">
+      <summary>¿Atascado? Abre una pista (no te doy el código)</summary>
+      <div class="body">
+        El ternario guarda un VALOR en una variable. Mira la forma de ejemplo que ya está en el editor: la condición va antes del <code class="inline">?</code>, el valor para el caso verdadero entre el <code class="inline">?</code> y el <code class="inline">:</code>, y el valor para el caso falso después del <code class="inline">:</code>. Son dos decisiones separadas (una para <code class="inline">vidas</code>, otra para <code class="inline">puntaje</code>), así que necesitas dos ternarios, cada uno en su propia variable.
+      </div>
+    </details>
+
+    <details class="hint-box">
+      <summary>🔥 Para los rápidos: el ternario anidado (y por qué tener cuidado)</summary>
+      <div class="body">
+        Se pueden encadenar: <code class="inline">nota >= 6 ? "Excelente" : nota >= 4 ? "Aprobado" : "Reprobado"</code>. Intenta crear un <code class="inline">rango</code> de puntaje con 3 niveles (por ejemplo: 2000+ "Maestro", 1000+ "Avanzado", menos "Novato"). <strong>Ojo:</strong> más de dos niveles anidados se vuelve ilegible rápido. En la vida real, si tienes 3 o más caminos, casi siempre conviene volver al <code class="inline">else if</code>. El ternario brilla en lo simple.
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================================================
+       DESAFÍO FINAL
+       ============================================================ -->
+  <div class="part-title">
+    <span class="pill">Boss</span>
+    <h2>Desafío final</h2>
+  </div>
+
+  <!-- BOSS -->
+  <section class="topic" id="boss">
+    <h3>Cajero automático seguro <span class="badge boss">🐉 Jefe final</span></h3>
+    <p class="lead">Junta TODO: variables, operadores, expresiones y condicionales anidados. Acá se separa quien copia de quien entiende.</p>
+
+    <div class="enunciado">Programa un cajero automático que procese un retiro. El cajero tiene un <strong>saldo</strong> en la cuenta y recibe un <strong>montoSolicitado</strong>. Un buen programa <strong>no confía</strong> en que el dato venga perfecto: debe validar TODO antes de entregar la plata. Imprime el mensaje correcto según el caso.</div>
+
+    <div class="reqs">
+      <div class="titlebar">✅ Reglas que debe validar EN ORDEN</div>
+      <ul>
+        <li><strong>1.</strong> Si el <code class="inline">montoSolicitado</code> es menor o igual a 0 → <code class="inline">"⛔ Monto inválido"</code>.</li>
+        <li><strong>2.</strong> Si NO es múltiplo de 1000 (el cajero solo entrega billetes de mil) → <code class="inline">"⛔ Solo montos múltiplos de $1000"</code>.</li>
+        <li><strong>3.</strong> Si el monto es mayor que el <code class="inline">saldo</code> → <code class="inline">"⛔ Saldo insuficiente"</code>.</li>
+        <li><strong>4.</strong> Si pasa todas las validaciones → <code class="inline">"✅ Retiro exitoso"</code>, muestra el monto entregado y el <strong>saldo restante</strong> (<code class="inline">saldo - montoSolicitado</code>).</li>
+      </ul>
+    </div>
+
+    <div class="examples">
+      <div class="titlebar">🎯 Casos de prueba (pruébalos TODOS)</div>
+      <table>
+        <tr><th>saldo</th><th>montoSolicitado</th><th>Salida esperada</th></tr>
+        <tr><td>50000</td><td>20000</td><td>✅ Retiro exitoso · Entregado: 20000 · Saldo: 30000</td></tr>
+        <tr><td>50000</td><td>-5000</td><td>⛔ Monto inválido</td></tr>
+        <tr><td>50000</td><td>12500</td><td>⛔ Solo montos múltiplos de $1000</td></tr>
+        <tr><td>50000</td><td>80000</td><td>⛔ Saldo insuficiente</td></tr>
+        <tr><td>50000</td><td>50000</td><td>✅ Retiro exitoso · Entregado: 50000 · Saldo: 0</td></tr>
+      </table>
+    </div>
+
+    <div class="editor-block">
+      <div class="editor-head"><div class="dots"><span></span><span></span><span></span></div><span class="fname">cajero-seguro.js</span></div>
+<textarea class="code" spellcheck="false">// Estado del cajero (cambia estos valores para probar cada caso):
+let saldo = 50000;
+let montoSolicitado = 20000;
+
+// 👇 Valida EN ORDEN antes de entregar la plata.
+// El orden importa: descarta primero los casos imposibles,
+// y deja el "retiro exitoso" para el final, cuando todo está OK.
+
+</textarea>
+      <div class="run-bar">
+        <button class="run">▶ Ejecutar</button>
+        <button class="reset">↺ Reiniciar</button>
+        <span class="hint">No avances al siguiente caso hasta que el actual dé EXACTO.</span>
+      </div>
+      <div class="console"></div>
+    </div>
+
+    <details class="hint-box">
+      <summary>¿Atascado? Abre una pista (no te doy el código)</summary>
+      <div class="body">
+        Piensa en una "puerta de seguridad" por cada regla, en orden. La estructura es una cadena <code class="inline">if / else if / else</code>: cada <code class="inline">else if</code> es una validación nueva, y solo se evalúa si las anteriores pasaron. "Múltiplo de 1000" se detecta con el resto: <code class="inline">montoSolicitado % 1000 !== 0</code>. El <code class="inline">else</code> final es el único lugar donde entregas la plata, porque para llegar ahí ya pasaste todos los filtros. ¿Notas que es el mismo patrón "validar antes de actuar" del ejercicio de la edad segura?
+      </div>
+    </details>
+
+    <details class="hint-box">
+      <summary>🔥 Cuando lo tengas: 3 mejoras para los más rápidos</summary>
+      <div class="body">
+        <ul style="margin:0; padding-left:20px;">
+          <li>Agrega una comisión de $300 si el monto es mayor a $30000 (resta extra al saldo).</li>
+          <li>Valida que <code class="inline">montoSolicitado</code> sea realmente un número (<code class="inline">typeof</code> + <code class="inline">isNaN</code>), como hicimos con la edad segura.</li>
+          <li>Limita el retiro máximo a $200000 por operación con un mensaje propio.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <p style="margin-top:40px"><a class="back-top" href="#">↑ Volver al inicio</a></p>
+
+  <footer>
+    🎮 Práctica guiada — Módulo 4 · Lección 02 · Condicionales + repaso de variables, operadores y expresiones<br>
+    Escribe, ejecuta, equivócate y vuelve a intentar. Así se aprende a programar de verdad.
+  </footer>
+
+</div>
+
+<script>
+  /* ============================================================
+     Runner pedagógico para PRACTICAR:
+     - Ejecuta lo que el ALUMNO escribió en cada textarea.
+     - Captura console.log e imprime en la "consola" del bloque.
+     - El botón Reiniciar restaura el código base de ese ejercicio.
+     - Una barra de progreso cuenta cuántos desafíos ya ejecutaron
+       al menos una vez (motivación, no corrección automática).
+     Es código educativo controlado: corre en un Function aislado,
+     con una consola local inyectada (no toca el console global).
+     ============================================================ */
+  (function () {
+    "use strict";
+
+    var blocks = Array.prototype.slice.call(document.querySelectorAll('.editor-block'));
+    var total = blocks.length;
+    var ejecutados = {};
+
+    var fill = document.getElementById('progressFill');
+    var countEl = document.getElementById('progressCount');
+
+    function actualizarProgreso() {
+      var n = Object.keys(ejecutados).length;
+      fill.style.width = (total ? (n / total) * 100 : 0) + '%';
+      countEl.textContent = n + ' / ' + total + ' desafíos ejecutados';
+    }
+
+    function format(v) {
+      if (typeof v === 'string') return v;
+      if (Array.isArray(v)) return '[ ' + v.map(function (x) {
+        return typeof x === 'string' ? '"' + x + '"' : format(x);
+      }).join(', ') + ' ]';
+      if (v === null) return 'null';
+      if (typeof v === 'undefined') return 'undefined';
+      if (typeof v === 'object') {
+        try { return JSON.stringify(v); } catch (e) { return String(v); }
+      }
+      return String(v);
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    blocks.forEach(function (block, index) {
+      var btnRun = block.querySelector('button.run');
+      var btnReset = block.querySelector('button.reset');
+      var area = block.querySelector('textarea.code');
+      var out = block.querySelector('.console');
+      if (!btnRun || !area || !out) return;
+
+      // Guardamos el código base para poder reiniciar
+      var original = area.value;
+
+      // Permite tabular dentro del textarea sin saltar de foco
+      area.addEventListener('keydown', function (e) {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          var start = area.selectionStart;
+          var end = area.selectionEnd;
+          area.value = area.value.substring(0, start) + '  ' + area.value.substring(end);
+          area.selectionStart = area.selectionEnd = start + 2;
+        }
+      });
+
+      btnRun.addEventListener('click', function () {
+        var source = area.value;
+        var lines = [];
+        function fakeLog() {
+          var parts = Array.prototype.slice.call(arguments).map(format);
+          lines.push(parts.join(' '));
+        }
+
+        out.classList.add('show');
+        try {
+          var runner = new Function('console', '"use strict";\n' + source);
+          runner({ log: fakeLog, error: fakeLog, warn: fakeLog, info: fakeLog });
+          out.innerHTML = '<span class="out-label">▶ salida de consola</span>' +
+                          escapeHtml(lines.join('\n') || '(sin salida — ¿usaste console.log?)');
+          ejecutados[index] = true;
+          actualizarProgreso();
+        } catch (err) {
+          out.innerHTML = '<span class="out-label">▶ salida de consola</span>' +
+                          '<span class="err">⛔ ' + escapeHtml(err.name + ': ' + err.message) +
+                          '\n\nRevisa la línea con error. Un punto y coma, una llave o un paréntesis suele ser el culpable.</span>';
+        }
+      });
+
+      if (btnReset) {
+        btnReset.addEventListener('click', function () {
+          area.value = original;
+          out.classList.remove('show');
+          out.innerHTML = '';
+          area.focus();
+        });
+      }
+    });
+
+    actualizarProgreso();
+  })();
+</script>
+</body>
+</html>
