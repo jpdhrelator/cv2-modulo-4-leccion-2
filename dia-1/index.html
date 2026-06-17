@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CL">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -376,10 +376,10 @@
     </p>
     <h4 style="color:var(--neon-cyan)">Reglas de la casa</h4>
     <ul>
-      <li>Escribís tu código en JavaScript. Probalo en la <strong>consola del navegador</strong> (F12 → Console) o en <a href="https://playcode.io" target="_blank" rel="noopener">un editor online</a>.</li>
-      <li>Cada nivel te dice <strong>QUÉ lograr</strong> y <strong>qué debe imprimir la consola</strong>. El <strong>CÓMO es tuyo</strong>. No vas a encontrar la solución acá — esa la escribís vos.</li>
-      <li>Usá <code>console.log()</code> para mostrar resultados. Usá <code>let</code> y <code>const</code> con criterio (¿por qué cada uno?).</li>
-      <li>Marcá cada nivel como completado. Tu progreso se guarda solo en este navegador.</li>
+      <li>Escribes tu código en JavaScript. Pruébalo en la <strong>consola del navegador</strong> (F12 → Console) o en <a href="https://playcode.io" target="_blank" rel="noopener">un editor online</a>.</li>
+      <li>Cada nivel te dice <strong>QUÉ lograr</strong> y <strong>qué debe imprimir la consola</strong>. El <strong>CÓMO es tuyo</strong>. No vas a encontrar la solución acá — esa la escribes tú.</li>
+      <li>Usa <code>console.log()</code> para mostrar resultados. Usa <code>let</code> y <code>const</code> con criterio (¿por qué cada uno?).</li>
+      <li>Marca cada nivel como completado. Tu progreso se guarda solo en este navegador.</li>
     </ul>
     <h4 style="color:var(--neon-cyan)">Objetivo de aprendizaje</h4>
     <p>
@@ -404,11 +404,11 @@
 
       <h4>Misión</h4>
       <ol>
-        <li>Declará e inicializá variables para tu héroe: <code>nombre</code> (texto), <code>nivel</code> (número entero), <code>energia</code> (número con decimales), <code>estaVivo</code> (booleano) y <code>monedas</code> (número).</li>
-        <li>Declará una constante <code>juego</code> con el nombre del videojuego. Preguntate: <strong>¿por qué esta debe ser <code>const</code> y no <code>let</code>?</strong></li>
-        <li>Creá una variable <code>poderSecreto</code> pero <strong>declarala primero y inicializala en una línea aparte</strong> (como enseña la lección: declarar y luego asignar).</li>
-        <li>Usando la función <code>typeof</code>, mostrá en consola el tipo de dato de <strong>cada</strong> variable.</li>
-        <li>Mostrá en consola una línea de presentación de tu héroe usando esas variables.</li>
+        <li>Declara e inicializa variables para tu héroe: <code>nombre</code> (texto), <code>nivel</code> (número entero), <code>energia</code> (número con decimales), <code>estaVivo</code> (booleano) y <code>monedas</code> (número).</li>
+        <li>Declara una constante <code>juego</code> con el nombre del videojuego. Pregúntate: <strong>¿por qué esta debe ser <code>const</code> y no <code>let</code>?</strong></li>
+        <li>Crea una variable <code>poderSecreto</code> pero <strong>declárala primero y inicialízala en una línea aparte</strong> (como enseña la lección: declarar y luego asignar).</li>
+        <li>Usando la función <code>typeof</code>, muestra en consola el tipo de dato de <strong>cada</strong> variable.</li>
+        <li>Muestra en consola una línea de presentación de tu héroe usando esas variables.</li>
       </ol>
 
       <div class="console">
@@ -421,18 +421,18 @@ monedas es de tipo number
 Héroe: Kira | Nivel 7 | Energía 88.5 | ¿Vive? true | 120 monedas</pre>
       </div>
 
-      <div class="hint">Recordá las reglas de nombres: un nombre de variable empieza por letra, <code>_</code> o <code>$</code>, y JavaScript distingue mayúsculas de minúsculas (<code>nivel</code> ≠ <code>Nivel</code>). Elegí nombres que <em>describan</em> lo que guardan.</div>
+      <div class="hint">Recuerda las reglas de nombres: un nombre de variable empieza por letra, <code>_</code> o <code>$</code>, y JavaScript distingue mayúsculas de minúsculas (<code>nivel</code> ≠ <code>Nivel</code>). Elegí nombres que <em>describan</em> lo que guardan.</div>
 
-      <div class="warn">¿Qué pasa si declarás <code>poderSecreto</code> pero NO lo inicializás antes de hacerle <code>typeof</code>? Probalo y observá qué responde la consola. Eso es una variable <em>especial</em>.</div>
+      <div class="warn">¿Qué pasa si declaras <code>poderSecreto</code> pero NO lo inicializas antes de hacerle <code>typeof</code>? Pruébalo y observa qué responde la consola. Eso es una variable <em>especial</em>.</div>
 
       <details class="help">
-        <summary>¿Te trabaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
+        <summary>¿Te atascaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
         <div class="help-body">
           <ol>
-            <li>Una variable se crea con una palabra clave (<code>let</code> o <code>const</code>), un nombre y un valor. Empezá por la más fácil: el <code>nombre</code> del héroe es texto, así que va entre comillas.</li>
+            <li>Una variable se crea con una palabra clave (<code>let</code> o <code>const</code>), un nombre y un valor. Empieza por la más fácil: el <code>nombre</code> del héroe es texto, así que va entre comillas.</li>
             <li>Para el tipo de cada una, <code>typeof</code> se escribe <em>antes</em> del nombre de la variable, sin paréntesis obligatorios.</li>
             <li>La constante <code>juego</code> nunca va a cambiar durante la partida → eso te dice qué palabra clave usar.</li>
-            <li>Para la línea de presentación, recordá que con <code>+</code> podés ir uniendo textos y variables.</li>
+            <li>Para la línea de presentación, recuerda que con <code>+</code> puedes ir uniendo textos y variables.</li>
           </ol>
         </div>
       </details>
@@ -453,22 +453,22 @@ Héroe: Kira | Nivel 7 | Energía 88.5 | ¿Vive? true | 120 monedas</pre>
     <div class="level-body">
       <p>En el laboratorio del arcade se estudian los <strong>tipos de datos</strong>. JavaScript es de tipado dinámico: él solo deduce el tipo según el valor. Vamos a comprobarlo.</p>
 
-      <h4>Misión A — Identificá los tipos</h4>
+      <h4>Misión A — Identifica los tipos</h4>
       <ol>
-        <li>Creá una variable de cada tipo: un <code>string</code>, un <code>number</code>, un <code>boolean</code>, un <code>array</code> y un <code>null</code>.</li>
-        <li>Mostrá con <code>typeof</code> el tipo de cada una.</li>
-        <li>Declará una variable SIN inicializar y mostrá su <code>typeof</code>. ¿Qué tipo especial aparece?</li>
+        <li>Crea una variable de cada tipo: un <code>string</code>, un <code>number</code>, un <code>boolean</code>, un <code>array</code> y un <code>null</code>.</li>
+        <li>Muestra con <code>typeof</code> el tipo de cada una.</li>
+        <li>Declara una variable SIN inicializar y muestra su <code>typeof</code>. ¿Qué tipo especial aparece?</li>
       </ol>
 
       <h4>Misión B — La mutación</h4>
       <ol>
-        <li>Creá <code>let dato = "Mercedes Benz"</code> y mostrá su tipo.</li>
-        <li>Ahora asigná <code>dato = 3</code> y volvé a mostrar su tipo. <strong>Comprobá que la MISMA variable cambió de tipo.</strong></li>
+        <li>Crea <code>let dato = "Mercedes Benz"</code> y muestra su tipo.</li>
+        <li>Ahora asigna <code>dato = 3</code> y volvé a mostrar su tipo. <strong>Comprueba que la MISMA variable cambió de tipo.</strong></li>
       </ol>
 
       <h4>Misión C — El operador <code>+</code> tramposo</h4>
       <ol>
-        <li>Mostrá el resultado de <code>5 + 3</code> (números) y de <code>"5" + 3</code> (texto + número). <strong>¿Por qué uno suma y el otro pega?</strong></li>
+        <li>Muestra el resultado de <code>5 + 3</code> (números) y de <code>"5" + 3</code> (texto + número). <strong>¿Por qué uno suma y el otro pega?</strong></li>
       </ol>
 
       <div class="console">
@@ -483,13 +483,13 @@ dato empezó como string y ahora es number
       <div class="warn">El <code>+</code> tiene doble personalidad: si los dos lados son números, <strong>SUMA</strong>. Si alguno es texto, <strong>CONCATENA</strong> (pega). Por eso <code>"5" + 3</code> da <code>"53"</code> y no <code>8</code>. Es la causa de muchísimos bugs.</div>
 
       <details class="help">
-        <summary>¿Te trabaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
+        <summary>¿Te atascaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
         <div class="help-body">
           <ol>
-            <li><code>typeof</code> devuelve el nombre del tipo como un texto: <code>"string"</code>, <code>"number"</code>, etc. Mostralo con <code>console.log()</code>.</li>
+            <li><code>typeof</code> devuelve el nombre del tipo como un texto: <code>"string"</code>, <code>"number"</code>, etc. Muéstralo con <code>console.log()</code>.</li>
             <li>Una variable declarada con <code>let dato;</code> y sin valor no da error: vale <code>undefined</code>.</li>
-            <li>Para la mutación, usá <code>typeof</code> antes y después de reasignar la misma variable.</li>
-            <li>Para el <code>+</code> tramposo: fijate que <code>"5"</code> (con comillas) es texto, y <code>5</code> (sin comillas) es número.</li>
+            <li>Para la mutación, usa <code>typeof</code> antes y después de reasignar la misma variable.</li>
+            <li>Para el <code>+</code> tramposo: fíjate que <code>"5"</code> (con comillas) es texto, y <code>5</code> (sin comillas) es número.</li>
           </ol>
         </div>
       </details>
@@ -512,19 +512,19 @@ dato empezó como string y ahora es number
 
       <h4>Misión A — Aritmética básica</h4>
       <ol>
-        <li>Declará <code>monedas = 3</code>, <code>gemas = 5</code> y <code>multiplicador = 2</code>.</li>
-        <li>Mostrá la suma, la resta, la multiplicación y la división entre <code>gemas</code> y <code>monedas</code>.</li>
+        <li>Declara <code>monedas = 3</code>, <code>gemas = 5</code> y <code>multiplicador = 2</code>.</li>
+        <li>Muestra la suma, la resta, la multiplicación y la división entre <code>gemas</code> y <code>monedas</code>.</li>
       </ol>
 
       <h4>Misión B — La trampa de la precedencia</h4>
       <ol>
-        <li>Calculá el <code>puntaje</code> con la fórmula <code>monedas + gemas * multiplicador</code> y mostralo. <strong>Antes de ejecutar, predecí el resultado a mano</strong> (la multiplicación va antes que la suma).</li>
-        <li>Ahora forzá el otro orden usando paréntesis para que primero sume y luego multiplique. Mostrá ambos resultados y comprobá que son <strong>distintos</strong>.</li>
+        <li>Calcula el <code>puntaje</code> con la fórmula <code>monedas + gemas * multiplicador</code> y muéstralo. <strong>Antes de ejecutar, predecí el resultado a mano</strong> (la multiplicación va antes que la suma).</li>
+        <li>Ahora fuerza el otro orden usando paréntesis para que primero sume y luego multiplique. Muestra ambos resultados y comprueba que son <strong>distintos</strong>.</li>
       </ol>
 
       <h4>Misión C — Par o impar con el resto</h4>
       <ol>
-        <li>Usando el operador <strong>resto</strong> (<code>%</code>), calculá y mostrá si el <code>puntaje</code> es par o impar.</li>
+        <li>Usando el operador <strong>resto</strong> (<code>%</code>), calcula y muestra si el <code>puntaje</code> es par o impar.</li>
       </ol>
 
       <div class="console">
@@ -535,15 +535,15 @@ Puntaje (con paréntesis): 16
 Resto del puntaje entre 2: 1</pre>
       </div>
 
-      <div class="hint">Orden de precedencia: <strong>multiplicación → división → resto → suma → resta</strong>. Y los paréntesis mandan sobre todo. En la duda: usá paréntesis para que tu intención quede clara.</div>
+      <div class="hint">Orden de precedencia: <strong>multiplicación → división → resto → suma → resta</strong>. Y los paréntesis mandan sobre todo. En la duda: usa paréntesis para que tu intención quede clara.</div>
 
       <details class="help">
-        <summary>¿Te trabaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
+        <summary>¿Te atascaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
         <div class="help-body">
           <ol>
-            <li>El <code>*</code> se ejecuta antes que el <code>+</code> aunque esté escrito después. Si querés cambiar ese orden, los <strong>paréntesis</strong> mandan.</li>
+            <li>El <code>*</code> se ejecuta antes que el <code>+</code> aunque esté escrito después. Si quieres cambiar ese orden, los <strong>paréntesis</strong> mandan.</li>
             <li>"Par o impar" se resuelve mirando el <strong>resto</strong> de dividir entre 2. Si ese resto vale 0… ¿qué número es?</li>
-            <li>Recordá: <code>puntaje % 2</code> te da el resto. Mostralo con <code>console.log()</code>.</li>
+            <li>Recuerda: <code>puntaje % 2</code> te da el resto. Muéstralo con <code>console.log()</code>.</li>
           </ol>
         </div>
       </details>
@@ -566,14 +566,14 @@ Resto del puntaje entre 2: 1</pre>
 
       <h4>Misión A — Incremento y decremento</h4>
       <ol>
-        <li>Tenés <code>vidas = 3</code>. Tu héroe encuentra una vida extra: aumentá <code>vidas</code> en uno usando el operador de incremento.</li>
-        <li>Demostrá que entendés la diferencia: creá <code>a = 3</code> y mostrá qué vale <code>a++</code> vs qué vale <code>++a</code>. Explicá en un comentario <strong>por qué</strong> dan distinto.</li>
+        <li>Tienes <code>vidas = 3</code>. Tu héroe encuentra una vida extra: aumenta <code>vidas</code> en uno usando el operador de incremento.</li>
+        <li>Demuestra que entiendes la diferencia: crea <code>a = 3</code> y muestra qué vale <code>a++</code> vs qué vale <code>++a</code>. Explica en un comentario <strong>por qué</strong> dan distinto.</li>
       </ol>
 
       <h4>Misión B — El medidor de poder</h4>
       <ol>
-        <li>Declará <code>poderHeroe = 7</code> y <code>poderEnemigo = 5</code>.</li>
-        <li>Mostrá el resultado (true/false) de compararlos usando: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code> y <code>&lt;=</code>.</li>
+        <li>Declara <code>poderHeroe = 7</code> y <code>poderEnemigo = 5</code>.</li>
+        <li>Muestra el resultado (true/false) de compararlos usando: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code> y <code>&lt;=</code>.</li>
       </ol>
 
       <div class="console">
@@ -585,14 +585,14 @@ poderHeroe == poderEnemigo -> false
 poderHeroe > poderEnemigo  -> true</pre>
       </div>
 
-      <div class="hint">El sufijo (<code>a++</code>) primero <em>devuelve</em> el valor y después suma. El prefijo (<code>++a</code>) primero suma y después devuelve. La posición lo cambia todo. Y recordá: toda comparación responde <code>true</code> o <code>false</code>.</div>
+      <div class="hint">El sufijo (<code>a++</code>) primero <em>devuelve</em> el valor y después suma. El prefijo (<code>++a</code>) primero suma y después devuelve. La posición lo cambia todo. Y recuerda: toda comparación responde <code>true</code> o <code>false</code>.</div>
 
       <details class="help">
-        <summary>¿Te trabaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
+        <summary>¿Te atascaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
         <div class="help-body">
           <ol>
-            <li>Para ver la diferencia de <code>a++</code> vs <code>++a</code>, asigná el resultado a otra variable y mostrá <em>las dos</em> (la original y la nueva).</li>
-            <li>Para comparar, guardá cada comparación en una variable o mostrala directo con <code>console.log()</code>. El resultado siempre será <code>true</code> o <code>false</code>.</li>
+            <li>Para ver la diferencia de <code>a++</code> vs <code>++a</code>, asigna el resultado a otra variable y muestra <em>las dos</em> (la original y la nueva).</li>
+            <li>Para comparar, guarda cada comparación en una variable o muéstrala directo con <code>console.log()</code>. El resultado siempre será <code>true</code> o <code>false</code>.</li>
             <li>Ojo: <code>==</code> (doble igual) compara. Un solo <code>=</code> asigna. No los confundas.</li>
           </ol>
         </div>
@@ -616,11 +616,11 @@ poderHeroe > poderEnemigo  -> true</pre>
 
       <h4>Misión</h4>
       <ol>
-        <li>Declará <code>nombre</code> y <code>apellido</code> de un jugador.</li>
-        <li>Generá su <code>gamertag</code> <strong>concatenando</strong> nombre y apellido con un guión bajo en el medio. Ej: <code>"Ada_Lovelace"</code>.</li>
-        <li>Mostrá cuántos caracteres tiene el gamertag usando <code>length</code>.</li>
-        <li>Mostrá la <strong>primera letra</strong> del gamertag usando <code>charAt()</code>. (Ojo: la primera posición no es la 1…).</li>
-        <li>Creá una cadena que contenga comillas dobles <em>dentro</em> del texto, por ejemplo un grito de batalla. Pista de la lección: las comillas internas NO deben coincidir con las externas.</li>
+        <li>Declara <code>nombre</code> y <code>apellido</code> de un jugador.</li>
+        <li>Genera su <code>gamertag</code> <strong>concatenando</strong> nombre y apellido con un guión bajo en el medio. Ej: <code>"Ada_Lovelace"</code>.</li>
+        <li>Muestra cuántos caracteres tiene el gamertag usando <code>length</code>.</li>
+        <li>Muestra la <strong>primera letra</strong> del gamertag usando <code>charAt()</code>. (Ojo: la primera posición no es la 1…).</li>
+        <li>Crea una cadena que contenga comillas dobles <em>dentro</em> del texto, por ejemplo un grito de batalla. Pista de la lección: las comillas internas NO deben coincidir con las externas.</li>
       </ol>
 
       <div class="console">
@@ -631,16 +631,16 @@ Primera letra: A
 Grito: Ada dijo "¡a programar!"</pre>
       </div>
 
-      <div class="warn">¿Qué devuelve <code>charAt(1)</code> sobre <code>"cadena"</code>? Según la lección, devuelve <code>"a"</code>, no <code>"c"</code>. Las posiciones empiezan en <strong>cero</strong>. Tenelo presente.</div>
+      <div class="warn">¿Qué devuelve <code>charAt(1)</code> sobre <code>"cadena"</code>? Según la lección, devuelve <code>"a"</code>, no <code>"c"</code>. Las posiciones empiezan en <strong>cero</strong>. Tenlo presente.</div>
 
       <details class="help">
-        <summary>¿Te trabaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
+        <summary>¿Te atascaste? Abrí esta ayuda (no resuelve, te orienta)</summary>
         <div class="help-body">
           <ol>
             <li>El gamertag se arma uniendo tres cosas con <code>+</code>: nombre, el guión bajo (que es texto: <code>"_"</code>) y apellido.</li>
             <li><code>length</code> se escribe pegado a la variable con un punto: <code>variable.length</code>. No lleva paréntesis.</li>
             <li>Para la primera letra, <code>charAt()</code> sí lleva paréntesis y adentro va la posición. La primera posición es <strong>0</strong>, no 1.</li>
-            <li>Para el grito con comillas dobles adentro: encerrá todo el texto con comillas simples <code>'</code> o backticks <code>`</code>, así las dobles de adentro no chocan.</li>
+            <li>Para el grito con comillas dobles adentro: encierra todo el texto con comillas simples <code>'</code> o backticks <code>`</code>, así las dobles de adentro no chocan.</li>
           </ol>
         </div>
       </details>
@@ -660,27 +660,27 @@ Grito: Ada dijo "¡a programar!"</pre>
     </div>
     <div class="level-body">
       <p>
-        Llegaste al final. Acá <strong>no se entrena una sola habilidad</strong>: tenés que usar
+        Llegaste al final. Acá <strong>no se entrena una sola habilidad</strong>: tienes que usar
         <strong>TODO lo de los 5 niveles a la vez</strong>. Un jugador entra a la tienda del arcade
-        a gastar sus monedas, y vos tenés que programar la <strong>caja registradora</strong> que
+        a gastar sus monedas, y tú tienes que programar la <strong>caja registradora</strong> que
         calcula la compra y le imprime un recibo bien armado. <strong>Solo con variables, operadores y cadenas</strong> — sin tomar decisiones todavía (eso lo vemos mañana).
       </p>
 
       <h4>Lo que tu programa debe hacer</h4>
       <ol>
-        <li><strong>Cliente:</strong> guardá el <code>nombre</code> del jugador y su <code>monedasDisponibles</code> (número) en variables.</li>
-        <li><strong>Productos:</strong> elegí <strong>3 productos</strong> de la tienda. Para cada uno, declará su <code>precio</code> y la <code>cantidad</code> que compra (ej: vidaExtra, escudo, poción).</li>
-        <li><strong>Subtotales (operadores):</strong> calculá el subtotal de cada producto multiplicando <code>precio * cantidad</code>.</li>
-        <li><strong>Total:</strong> sumá los 3 subtotales en una variable <code>total</code>.</li>
-        <li><strong>Descuento:</strong> la tienda hace 10% de descuento. Calculá el <code>totalConDescuento</code> usando operadores (pista: 10% es multiplicar por <code>0.10</code>).</li>
-        <li><strong>Saldo final:</strong> calculá cuántas monedas le quedan al jugador: <code>monedasDisponibles - totalConDescuento</code>.</li>
-        <li><strong>Código de cliente (cadenas):</strong> generá un código concatenando la <strong>primera letra</strong> del nombre (<code>charAt(0)</code>) + la <strong>cantidad de letras</strong> del nombre (<code>length</code>). Ej: para <code>"Kira"</code> → <code>"K4"</code>.</li>
+        <li><strong>Cliente:</strong> guarda el <code>nombre</code> del jugador y su <code>monedasDisponibles</code> (número) en variables.</li>
+        <li><strong>Productos:</strong> elegí <strong>3 productos</strong> de la tienda. Para cada uno, declara su <code>precio</code> y la <code>cantidad</code> que compra (ej: vidaExtra, escudo, poción).</li>
+        <li><strong>Subtotales (operadores):</strong> calcula el subtotal de cada producto multiplicando <code>precio * cantidad</code>.</li>
+        <li><strong>Total:</strong> suma los 3 subtotales en una variable <code>total</code>.</li>
+        <li><strong>Descuento:</strong> la tienda hace 10% de descuento. Calcula el <code>totalConDescuento</code> usando operadores (pista: 10% es multiplicar por <code>0.10</code>).</li>
+        <li><strong>Saldo final:</strong> calcula cuántas monedas le quedan al jugador: <code>monedasDisponibles - totalConDescuento</code>.</li>
+        <li><strong>Código de cliente (cadenas):</strong> genera un código concatenando la <strong>primera letra</strong> del nombre (<code>charAt(0)</code>) + la <strong>cantidad de letras</strong> del nombre (<code>length</code>). Ej: para <code>"Kira"</code> → <code>"K4"</code>.</li>
         <li><strong>Imprimí el recibo</strong> usando <strong>concatenación</strong>: nombre, productos con sus subtotales, total, descuento, total final y saldo.</li>
       </ol>
 
       <h4>Tabla de habilidades que DEBÉS demostrar</h4>
       <table class="req-table">
-        <thead><tr><th>Del nivel</th><th>Tenés que usarlo en</th></tr></thead>
+        <thead><tr><th>Del nivel</th><th>Tienes que usarlo en</th></tr></thead>
         <tbody>
           <tr><td>1 · Variables</td><td>Cliente, precios, cantidades, totales (let vs const)</td></tr>
           <tr><td>2 · Tipos</td><td>Saber qué es número y qué es texto al armar el recibo</td></tr>
@@ -704,28 +704,28 @@ Saldo restante:   2 monedas
 =============================</pre>
       </div>
 
-      <div class="warn">El recibo tiene que <strong>cuadrar matemáticamente</strong>: si los subtotales no suman el total, o el descuento está mal, el jugador se da cuenta. Revisá tus operaciones con números fáciles primero (precios redondos) y recién después poné valores realistas.</div>
+      <div class="warn">El recibo tiene que <strong>cuadrar matemáticamente</strong>: si los subtotales no suman el total, o el descuento está mal, el jugador se da cuenta. Revisa tus operaciones con números fáciles primero (precios redondos) y recién después poné valores realistas.</div>
 
       <h4>🏆 Misiones de bonus (para los que quieren el récord)</h4>
       <ul>
-        <li>Agregá el <strong>IVA del 19%</strong> al total (Chile) usando operadores, y mostralo como una línea más del recibo.</li>
-        <li>Mostrá cuántas <strong>letras en total</strong> tiene el nombre del producto más caro usando <code>length</code>.</li>
-        <li>Hacé que el código de cliente incluya también la <strong>última letra</strong> del nombre (pensá: ¿qué posición es la última si <code>length</code> cuenta desde 1 pero <code>charAt</code> desde 0?).</li>
+        <li>Agrega el <strong>IVA del 19%</strong> al total (Chile) usando operadores, y muéstralo como una línea más del recibo.</li>
+        <li>Muestra cuántas <strong>letras en total</strong> tiene el nombre del producto más caro usando <code>length</code>.</li>
+        <li>Hacé que el código de cliente incluya también la <strong>última letra</strong> del nombre (piensa: ¿qué posición es la última si <code>length</code> cuenta desde 1 pero <code>charAt</code> desde 0?).</li>
       </ul>
 
       <details class="help">
-        <summary>¿Te trabaste con el Jefe? Abrí esta ayuda (te da el plan, no el código)</summary>
+        <summary>¿Te atascaste con el Jefe? Abrí esta ayuda (te da el plan, no el código)</summary>
         <div class="help-body">
-          <p>No intentes hacerlo todo de una. Partilo en pasos chiquitos, como en los niveles:</p>
+          <p>No intentes hacerlo todo de una. Pártelo en pasos chiquitos, como en los niveles:</p>
           <ol>
-            <li><strong>Datos primero:</strong> declará el cliente y sus monedas. Después, para cada producto, su precio y su cantidad. Todo son variables, nada de cálculos todavía.</li>
-            <li><strong>Un subtotal a la vez:</strong> calculá el subtotal del primer producto (<code>precio * cantidad</code>) y mostralo. Si ese sale bien, los otros dos son calcar.</li>
-            <li><strong>El total:</strong> es la suma de los tres subtotales. Guardalo en su propia variable.</li>
+            <li><strong>Datos primero:</strong> declara el cliente y sus monedas. Después, para cada producto, su precio y su cantidad. Todo son variables, nada de cálculos todavía.</li>
+            <li><strong>Un subtotal a la vez:</strong> calcula el subtotal del primer producto (<code>precio * cantidad</code>) y muéstralo. Si ese sale bien, los otros dos son calcar.</li>
+            <li><strong>El total:</strong> es la suma de los tres subtotales. Guárdalo en su propia variable.</li>
             <li><strong>El descuento:</strong> "10% del total" es <code>total * 0.10</code>. El total con descuento es el total menos eso.</li>
-            <li><strong>El código:</strong> juntá con <code>+</code> la letra de <code>charAt(0)</code> y el número de <code>.length</code>. Recordá: <code>length</code> devuelve un número, así que al concatenarlo con texto se pega como texto.</li>
-            <li><strong>El recibo:</strong> armalo línea por línea con <code>+</code>. Probá una línea, después sumá la siguiente.</li>
+            <li><strong>El código:</strong> junta con <code>+</code> la letra de <code>charAt(0)</code> y el número de <code>.length</code>. Recuerda: <code>length</code> devuelve un número, así que al concatenarlo con texto se pega como texto.</li>
+            <li><strong>El recibo:</strong> ármalo línea por línea con <code>+</code>. Prueba una línea, después suma la siguiente.</li>
           </ol>
-          <p>Tip: empezá con <strong>precios redondos</strong> (50, 75, 100) para verificar a mano que las cuentas cuadran.</p>
+          <p>Tip: empieza con <strong>precios redondos</strong> (50, 75, 100) para verificar a mano que las cuentas cuadran.</p>
         </div>
       </details>
 
@@ -736,7 +736,7 @@ Saldo restante:   2 monedas
   <!-- ======================= AUTOEVALUACIÓN ======================= -->
   <section class="panel" style="margin-top:40px">
     <h2>✅ Tarjeta de Puntaje — Autoevaluación</h2>
-    <p>Antes de gritar "¡terminé!", revisá honestamente. Marcá solo lo que de verdad cumpliste:</p>
+    <p>Antes de gritar "¡terminé!", revisa honestamente. Marca solo lo que de verdad cumpliste:</p>
     <ul class="check-list">
       <li><input type="checkbox"> Usé <code>let</code> y <code>const</code> y puedo explicar por qué elegí cada uno.</li>
       <li><input type="checkbox"> Mis nombres de variables describen lo que guardan (nada de <code>x</code>, <code>aaa</code> o <code>dato1</code>).</li>
